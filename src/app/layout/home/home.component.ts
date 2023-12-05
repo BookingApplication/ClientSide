@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  title:string = "Accomodations";
 
+  //test elements
+  accommodations = [
+    { id: 1, name: 'Accommodation1', imageUrl: 'assets/images/img1.jpg' },
+    { id: 2, name: 'Accommodation2', imageUrl: 'assets/images/img2.jpg' },
+    { id: 3, name: 'Accommodation3', imageUrl: 'assets/images/img3.jpg' },
+    { id: 4, name: 'Accommodation4', imageUrl: 'assets/images/img4.jpg' },
+    { id: 5, name: 'Accommodation5', imageUrl: 'assets/images/img5.jpg' },
+    { id: 6, name: 'Accommodation6', imageUrl: 'assets/images/img6.jpg' }
+  ];
 }

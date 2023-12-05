@@ -1,1 +1,11 @@
-<p>home works!</p>
+<h3>{{title}}</h3>
+<div *ngFor="let accommodation of accommodations; let i = index">
+  <div class="accommodation">
+    <a [routerLink]="['/accommodation', accommodation.id]">
+      <img [src]="accommodation.imageUrl" alt="Accommodation Image">
+      <p>{{ accommodation.name }}</p>
+    </a>
+  </div>
+
+  <div *ngIf="i % 3 === 2" class="clear-row"></div>
+</div>

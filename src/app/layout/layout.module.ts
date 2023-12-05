@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterLink} from "@angular/router";
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -15,11 +16,13 @@ import {RouterLink} from "@angular/router";
   exports: [
     NavbarComponent
   ],
-  imports: [
-    CommonModule,
-    RouterLink,
-    MaterialModule,
+    imports: [
+        CommonModule,
+        RouterLink,
+        MaterialModule,
+        NgOptimizedImage,
+      MatIconModule
 
-  ]
+    ]
 })
 export class LayoutModule { }

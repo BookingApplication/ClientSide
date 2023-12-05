@@ -1,7 +1,16 @@
 <mat-toolbar>
-  <span [routerLink]="['home']" >Booking Application</span>
+  <div class="logo">
+    <span [routerLink]="['home']" >
+    <img src="assets/images/booking_logo.png" alt="Logo"/>
+    </span>
+  </div>
+
   <div>
     <button [routerLink]="['login']" style="float: right" mat-raised-button color="primary">LogIn</button>
-    <button [routerLink]="['register']"  style="float: right" mat-raised-button color="accent">SignUp</button>
+    <button [routerLink]="['registration']"  style="float: right" mat-raised-button color="accent">SignUp</button>
   </div>
+  <span>
+    <input type="search" id="site-search" name="q" />
+    <button name="searchButton">Search</button>
+  </span>
 </mat-toolbar>

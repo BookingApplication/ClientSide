@@ -1,5 +1,6 @@
 mat-toolbar {
   background-color: #5656a1;
+  height: 60px;
 }
 
 div {
@@ -10,4 +11,22 @@ div {
 button {
   margin-right: 10px;
   background-color: aliceblue;
+}
+
+input
+{
+  margin-right: 10px;
+}
+
+.logo {
+  margin: 2px;
+  padding-top: 10px;
+}
+
+img
+{
+  width: 40px;
+  height: 40px;
+  horiz-align: center;
+  vertical-align: center;
 }

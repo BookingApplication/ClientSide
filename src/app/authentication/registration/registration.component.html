@@ -1,1 +1,37 @@
-<p>registration works!</p>
+<div class="registration-container">
+  <mat-card class="registration_card">
+    <h2>Registration</h2>
+    <form (ngSubmit)="onSubmit()">
+
+      <mat-form-field class="full-width">
+        <input matInput type="email" id="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="password" id="password" name="password" [(ngModel)]="user.password" placeholder="Password" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Confirm Password" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="text" id="name" name="name" [(ngModel)]="user.name" placeholder="Name" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="text" id="surname" name="surname" [(ngModel)]="user.surname" placeholder="Surname" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="text" id="livingAddress" name="livingAddress" [(ngModel)]="user.livingAddress" placeholder="Living Address" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="tel" id="telephoneNumber" name="telephoneNumber" [(ngModel)]="user.telephoneNumber" placeholder="Telephone Number" required>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Register</button>
+    </form>
+  </mat-card>
+</div>

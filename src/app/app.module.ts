@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +19,8 @@ import {UserModule} from "./user/user.module";
     ApartmentsModule,
     AuthenticationModule,
     LayoutModule,
-    UserModule
+    UserModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
