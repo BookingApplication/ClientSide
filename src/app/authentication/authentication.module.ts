@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 
@@ -19,7 +20,9 @@ import {MatButtonModule} from "@angular/material/button";
         MatInputModule,
         FormsModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatRadioModule
     ]
 })
 export class AuthenticationModule { }

@@ -1,37 +1,53 @@
 <div class="registration-container">
-  <mat-card class="registration_card">
-    <h2>Registration</h2>
-    <form (ngSubmit)="onSubmit()">
+  <mat-card class="registration-card">
+    <mat-card-header>
+      <mat-card-title>Registration</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+    <form [formGroup]="registrationForm">
 
       <mat-form-field class="full-width">
-        <input matInput type="email" id="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="email" name="email" formControlName="email">
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput type="password" id="password" name="password" [(ngModel)]="user.password" placeholder="Password" required>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="password" name="password" formControlName="password">
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Confirm Password" required>
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" placeholder="confirm password" name="confirmPassword" formControlName="confirmPassword">
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput type="text" id="name" name="name" [(ngModel)]="user.name" placeholder="Name" required>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="name" name="name" formControlName="name">
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput type="text" id="surname" name="surname" [(ngModel)]="user.surname" placeholder="Surname" required>
+        <mat-label>Surname</mat-label>
+        <input matInput type="text" placeholder="surname" name="surname" formControlName="surname">
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput type="text" id="livingAddress" name="livingAddress" [(ngModel)]="user.livingAddress" placeholder="Living Address" required>
+        <mat-label>Living Address</mat-label>
+        <input matInput type="text" placeholder="living address" name="livingAddress" formControlName="livingAddress">
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput type="tel" id="telephoneNumber" name="telephoneNumber" [(ngModel)]="user.telephoneNumber" placeholder="Telephone Number" required>
+        <mat-label>Telephone Number</mat-label>
+        <input matInput type="tel" placeholder="telephone number" name="telephoneNumber" formControlName="telephoneNumber">
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">Register</button>
+      <mat-radio-group aria-label="Select an option" formControlName="registrationOption">
+        <mat-radio-button id="guestOption" checked="true" [value]="1">Register as guest</mat-radio-button>
+        <mat-radio-button id="hostOption" [value]="2">Register as host</mat-radio-button>
+      </mat-radio-group>
+
+      <button (click)="register()" mat-raised-button color="primary" type="submit">Register</button>
     </form>
+    </mat-card-content>
   </mat-card>
 </div>

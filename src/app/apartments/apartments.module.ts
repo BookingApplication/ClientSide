@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApartmentDetailsComponent } from './apartment-details/apartment-details.component';
-
+import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
+import { CreateAccomodationComponent } from './create-accomodation/create-accomodation.component';
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
-    ApartmentDetailsComponent
+    AccommodationDetailsComponent,
+    CreateAccomodationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatInputModule,
+    ReactiveFormsModule
   ]
 })
 export class ApartmentsModule { }
