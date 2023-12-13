@@ -5,13 +5,21 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {RouterLink} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
+import {MatDividerModule} from "@angular/material/divider";
+import { GuestNavbarComponent } from './navbar/guest-navbar/guest-navbar.component';
+import { HostNavbarComponent } from './navbar/host-navbar/host-navbar.component';
+import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
+// import {SharedModule} from "../shared/shared.module";
 
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    GuestNavbarComponent,
+    HostNavbarComponent,
+    AdminNavbarComponent
   ],
   exports: [
     NavbarComponent
@@ -21,7 +29,9 @@ import {MatIconModule} from "@angular/material/icon";
         RouterLink,
         MaterialModule,
         NgOptimizedImage,
-      MatIconModule
+        MatIconModule,
+        MatDividerModule,
+        // SharedModule
 
     ]
 })

@@ -1,0 +1,41 @@
+<div class="create-accommodation-container">
+  <mat-card class="accommodation-card">
+    <mat-card-header>
+      <mat-card-title>Create Accommodation</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="createAccomodationForm">
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" name="name" formControlName="name" />
+          </mat-form-field >
+          <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <input matInput type="text" name="description"  placeholder="description"  formControlName="description" />
+          </mat-form-field>
+        <mat-divider></mat-divider>
+          <mat-form-field class="full-width">
+            <mat-label>Location</mat-label>
+            <input matInput type="text" name="location" placeholder="location" formControlName="location" />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Minimum number of guests</mat-label>
+            <input matInput type="number" name="minimum_nb_guests" formControlName="min_nb_guests" />
+          </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Maximum number of guests</mat-label>
+          <input matInput type="number" name="maximum_nb_guests" formControlName="max_nb_guests" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Region</mat-label>
+            <input matInput type="text" name="region" formControlName="region" />
+          </mat-form-field>
+          <div id="createBtn">
+            <button (click)="create()" type="submit" color="primary" mat-raised-button>Create</button>
+          </div>
+        </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+<!--Mapa**-->

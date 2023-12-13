@@ -1,14 +1,18 @@
-.account-container {
+.create-accommodation-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
 }
 
-.account-card {
+.accommodation-card {
   max-width: 400px;
   width: 100%;
   text-align: center;
+}
+
+mat-divider{
+  margin-bottom: 10%;
 }
 
 form {
@@ -30,7 +34,7 @@ input{
 mat-card-header{
   font-family: Lato, Helvetica, sans-serif;
   font-style: normal;
-  margin-left: 30%;
+  margin-left: 17%;
   margin-top: 30px;
 }
 
@@ -39,10 +43,10 @@ mat-card-header{
   margin-bottom: 16px;
 }
 
-#saveBtn, #cancelBtn{
-  color: white;
-  background-color: rgb(63, 81, 181);
-}
+/*#createBtn{*/
+/*  color: white;*/
+/*  background-color: rgb(63, 81, 181);*/
+/*}*/
 
 button{
   width: 100px;

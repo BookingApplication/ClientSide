@@ -26,6 +26,9 @@ export class RegistrationComponent {
 
 constructor(private service:AuthService, private router: Router) {
 }
+
+ngOnInit():void{}
+
   register() {
     if(this.registrationForm.valid){
       const registrationModel : RegistrationModel = {

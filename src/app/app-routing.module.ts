@@ -4,13 +4,18 @@ import {HomeComponent} from "./layout/home/home.component";
 import {RegistrationComponent} from "./authentication/registration/registration.component";
 import {LoginComponent} from "./authentication/login/login.component";
 import {AccommodationDetailsComponent} from "./apartments/accommodation-details/accommodation-details.component";
+import {ManageAccountComponent} from "./user/manage-account/manage-account.component";
+import {CreateAccomodationComponent} from "./apartments/create-accomodation/create-accomodation.component";
 
 const routes: Routes = [
   {component: HomeComponent, path:"home"},
-  {component: HomeComponent, path:""},
+  //{component: HomeComponent, path:""},
   {component: AccommodationDetailsComponent, path: "accommodation/:id"},
   {component: LoginComponent, path:"login"},
-  {component: RegistrationComponent, path:"registration"}
+  {component: RegistrationComponent, path:"registration"},
+  {component: ManageAccountComponent, path:"manage-account"},
+  {component: AccommodationDetailsComponent, path: "accommodation-details"},
+  {component: CreateAccomodationComponent, path: "create-accommodation"}
 ];
 
 @NgModule({
