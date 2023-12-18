@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {environment} from "../env/env";
 import {LoginModel} from "./model/login.model";
 import {LoggedInModel} from "./model/loggedIn.model";
-import {ManageAccountDataModel} from "./model/manageAccountData.model";
+// import {ManageAccountDataModel} from "./model/manageAccountData.model";
 import { Type } from '@angular/core';
 
 @Injectable({
@@ -15,11 +15,6 @@ export class AuthService {
 
   constructor(private injector: Injector) {
   }
-
-  // updateAccountData(data:ManageAccountDataModel??):Observable<RegistrationModel>??{
-  //   return this.httpClient.post<??>(environment.apiHost + '', data);
-  // problems fixed
-  // }
 
   register(data:RegistrationModel, registerAsGuest:boolean): Observable<RegistrationModel>{
     let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
@@ -34,4 +29,14 @@ export class AuthService {
     let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
     return httpClient.post<LoggedInModel>(environment.apiHost + 'login', data);
   }
+
+    getAccountData(email: String) : Observable<RegistrationModel> {
+        let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
+        return httpClient.get<RegistrationModel>(environment.apiHost + 'account/' + email);
+    }
+
+    updateAccountData(data: RegistrationModel):Observable<RegistrationModel> {
+        let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
+        return httpClient.post<RegistrationModel>(environment.apiHost + 'account', data);
+    }
 }

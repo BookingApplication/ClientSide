@@ -8,12 +8,12 @@
       <form [formGroup]="loginForm">
         <mat-form-field class="full-width">
           <mat-label>Email</mat-label>
-          <input  placeholder="Email" formControlName="email" name="email" required>
+          <input matInput placeholder="Email" formControlName="email" name="email" required>
         </mat-form-field>
 
         <mat-form-field class="full-width">
           <mat-label>Password</mat-label>
-          <input  type="password" placeholder="Password" formControlName="password" name="password" required>
+          <input matInput type="password" placeholder="Password" formControlName="password" name="password" required>
         </mat-form-field>
 
         <button (click)="logIn()" mat-raised-button color="primary" type="submit">Login</button>

@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
-import { CreateAccomodationComponent } from './create-accomodation/create-accomodation.component';
+import { CreateAccommodationComponent } from './create-accommodation/create-accommodation.component';
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
-// import {SharedModule} from "../shared/shared.module";
+import {SharedModule} from "../shared/shared.module";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 
 @NgModule({
   declarations: [
     AccommodationDetailsComponent,
-    CreateAccomodationComponent
+    CreateAccommodationComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,10 @@ import {MatDividerModule} from "@angular/material/divider";
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    // SharedModule
+    SharedModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatDatepickerModule,
   ]
 })
-export class ApartmentsModule { }
+export class AccommodationsModule { }

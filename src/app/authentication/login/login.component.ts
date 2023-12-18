@@ -25,6 +25,7 @@ export class LoginComponent {
   }
 
   ngOnInit() : void {}
+
   logIn() {
     if (this.loginForm.valid) {
       const loginModel: LoginModel = {
@@ -35,11 +36,13 @@ export class LoginComponent {
         next:(data:LoggedInModel) =>
         {
           this.router.navigate(['home']);
-          localStorage.setItem('currentUser', JSON.stringify({
-            name:data.name,
-            surname:data.surname,
-            email:data.email
-          }));},
+          // localStorage.setItem('user', JSON.stringify({
+          //   // name:data.name,
+          //   // surname:data.surname,
+          //   // email:data.email,
+          //   token:data.token
+          // }))
+          },
         error:(_) => {console.log("Registration error.")}
       })
 

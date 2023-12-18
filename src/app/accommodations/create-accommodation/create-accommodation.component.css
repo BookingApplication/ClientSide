@@ -6,10 +6,32 @@
 }
 
 .accommodation-card {
-  max-width: 400px;
+  max-width: 520px;
   width: 100%;
   text-align: center;
 }
+
+.amenities-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 10px;
+}
+#date-range-picker{
+  height: 90px;
+}
+
+label{
+  horiz-align: left;
+  font-size: 25px;
+}
+
+.amenity-column {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+}
+
 
 mat-divider{
   margin-bottom: 10%;
@@ -53,3 +75,25 @@ button{
   /*margin-top: 20px;*/
   margin: 5%;
 }
+
+img{
+  width: 100px;
+  height: 100px;
+}
+.img-container{
+  border:2px solid black;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex: 0 0 calc(33.33% - 10px);
+  margin: 5px;
+}
+/*#browseFileInput{*/
+/*  height: 28px;*/
+/*  color: white;*/
+/*    background-color: rgb(63, 81, 181);*/
+/*}*/

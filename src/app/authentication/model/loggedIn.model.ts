@@ -1,4 +1,6 @@
 export interface LoggedInModel {
+  token: string;
+
   name: string;
   surname: string;
   email: string;

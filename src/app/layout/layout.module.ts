@@ -9,6 +9,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import { GuestNavbarComponent } from './navbar/guest-navbar/guest-navbar.component';
 import { HostNavbarComponent } from './navbar/host-navbar/host-navbar.component';
 import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
+import {SharedModule} from "../shared/shared.module";
 // import {SharedModule} from "../shared/shared.module";
 
 
@@ -24,15 +25,15 @@ import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.compone
   exports: [
     NavbarComponent
   ],
-    imports: [
-        CommonModule,
-        RouterLink,
-        MaterialModule,
-        NgOptimizedImage,
-        MatIconModule,
-        MatDividerModule,
-        // SharedModule
-
-    ]
+  imports: [
+    CommonModule,
+    RouterLink,
+    MaterialModule,
+    NgOptimizedImage,
+    MatIconModule,
+    MatDividerModule,
+    SharedModule,
+    // SharedModule,
+  ]
 })
 export class LayoutModule { }
