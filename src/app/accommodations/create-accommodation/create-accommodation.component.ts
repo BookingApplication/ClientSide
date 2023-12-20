@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccommodationModel, IntervalAndPrice} from "../model/accommodationModel";
+import {AuthService} from "../../authentication/auth.service";
+import {Router} from "@angular/router";
+import {AccommodationsService} from "../accommodations.service";
+import {AccommodationDetailsComponent} from "../accommodation-details/accommodation-details.component";
 // import * as L from "leaflet";
 // import {MapComponent} from "../../shared/map/map.component";
 // import {MapService} from "../../shared/map/map.service";
@@ -12,6 +16,10 @@ import {AccommodationModel, IntervalAndPrice} from "../model/accommodationModel"
 })
 
 export class CreateAccommodationComponent {
+
+  constructor(private service:AccommodationsService, private router:Router) {
+
+  }
 
   amenities : string[] = [
     "FREE_WIFI",
@@ -59,9 +67,19 @@ export class CreateAccommodationComponent {
           intervalsAndPrices: this.intervalsAndPrices,
           pictures: this.photoPaths
         };
-        if(this.intervalsAndPrices.length > 0 && this.photoPaths.length >0){
+        if(this.intervalsAndPrices.length > 0 && this.photoPaths.length >0) {
           // call service to create apt
-
+          this.service.createAccomodation(accommodation);
+          // .subscribe({
+          //   next: (data) => {
+          //     this.router.navigate(['home'])
+          //     console.log("create accommodation success.")
+          //   },
+          //   error: (_) => {
+          //     console.log("Accommodation creation error.")
+          //   }
+          //
+          // })
         }
         else {
           console.log("not valid");
