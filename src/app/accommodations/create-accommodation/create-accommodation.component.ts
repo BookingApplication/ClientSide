@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AccommodationModel, IntervalAndPrice} from "../model/accommodationModel";
+import {AccommodationModel, Interval} from "../model/accommodationModel";
 import {AuthService} from "../../authentication/auth.service";
 import {Router} from "@angular/router";
 import {AccommodationsService} from "../accommodations.service";
@@ -38,7 +38,7 @@ export class CreateAccommodationComponent {
     "FREE_BREAKFAST",
   ];
   selectedAmenities: boolean[] = Array(this.amenities.length).fill(false);
-  intervalsAndPrices : Array<IntervalAndPrice> = [];
+  intervals : Array<Interval> = [];
   photoPaths: string[] = [];
 
   createAccommodationForm = new FormGroup({
@@ -64,22 +64,21 @@ export class CreateAccommodationComponent {
           minNbOfGuests:+this.createAccommodationForm.value.min_nb_guests!,
           maxNbOfGuests:+this.createAccommodationForm.value.max_nb_guests!,
           amenities: selectedAmenitiesList,
-          intervalsAndPrices: this.intervalsAndPrices,
-          pictures: this.photoPaths
+          intervals: this.intervals,
+          pictures: this.photoPaths,
+          price:+this.createAccommodationForm.value.price!
         };
-        if(this.intervalsAndPrices.length > 0 && this.photoPaths.length >0) {
+        if(this.intervals.length > 0 && this.photoPaths.length >0) {
           // call service to create apt
-          this.service.createAccomodation(accommodation);
-          // .subscribe({
-          //   next: (data) => {
-          //     this.router.navigate(['home'])
-          //     console.log("create accommodation success.")
-          //   },
-          //   error: (_) => {
-          //     console.log("Accommodation creation error.")
-          //   }
-          //
-          // })
+          this.service.createAccommodation(accommodation).subscribe({
+            next: () => {
+              this.router.navigate(['home'])
+              console.log("create accommodation success.")
+            },
+            error: (_) => {
+              console.log("Accommodation creation error.")
+            }
+          })
         }
         else {
           console.log("not valid");
@@ -95,8 +94,8 @@ export class CreateAccommodationComponent {
     return startDate && endDate && startDate < endDate && startDate > today && endDate > today;
   }
 
-  isDateOverlap(newInterval: IntervalAndPrice): boolean {
-    return this.intervalsAndPrices.some(existingInterval => {
+  isDateOverlap(newInterval: Interval): boolean {
+    return this.intervals.some(existingInterval => {
       if (
         newInterval.startDate &&
         newInterval.endDate &&
@@ -118,19 +117,19 @@ export class CreateAccommodationComponent {
     if (this.areDatesValid())
     {
       console.log("valid");
-      const intervalAndPrice:IntervalAndPrice = {
+      const intervalAndPrice:Interval = {
         startDate : this.createAccommodationForm.value.start_date!.getTime(),
         endDate : this.createAccommodationForm.value.end_date!.getTime(),
-        price : +this.createAccommodationForm.value.price!
+        // price : +this.createAccommodationForm.value.price!
       }
       if(!this.isDateOverlap(intervalAndPrice)) {
-        this.intervalsAndPrices.push(intervalAndPrice);
+        this.intervals.push(intervalAndPrice);
       }
     }
     else
       console.log("not valid")
 
-    console.log(this.intervalsAndPrices);
+    console.log(this.intervals);
   }
 
   onFileChange(event: any): void {

@@ -10,12 +10,18 @@ import {MatDividerModule} from "@angular/material/divider";
 import {SharedModule} from "../shared/shared.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
   declarations: [
     AccommodationDetailsComponent,
-    CreateAccommodationComponent
+    CreateAccommodationComponent,
+    AccommodationCardComponent
+  ],
+  exports: [
+    AccommodationCardComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +34,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatCheckboxModule,
     FormsModule,
     MatDatepickerModule,
+    RouterLink,
   ]
 })
 export class AccommodationsModule { }

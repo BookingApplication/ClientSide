@@ -41,7 +41,7 @@
         <input matInput type="tel" placeholder="telephone number" name="telephoneNumber" formControlName="telephoneNumber">
       </mat-form-field>
 
-      <mat-radio-group aria-label="Select an option" formControlName="registrationOption">
+      <mat-radio-group aria-label="Select an option" [value]="val" formControlName="registrationOption">
         <mat-radio-button id="guestOption" checked="true" [value]="1">Register as guest</mat-radio-button>
         <mat-radio-button id="hostOption" [value]="2">Register as host</mat-radio-button>
       </mat-radio-group>

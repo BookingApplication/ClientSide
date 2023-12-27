@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AccommodationModel} from "../../accommodations/model/accommodationModel";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  title:string = "Accomodations";
+export class HomeComponent implements OnInit{
+  title:string = "Accommodations";
 
   //test elements
   accommodations = [
@@ -23,4 +24,10 @@ export class HomeComponent {
     // { id: 52, name: 'Accommodation5', imageUrl: 'assets/images/img5.jpg' },
     // { id: 62, name: 'Accommodation6', imageUrl: 'assets/images/img6.jpg' }
   ];
+
+  ngOnInit() {
+    //pozovi servis za dobavljanje accommodation-a
+
+  }
+
 }

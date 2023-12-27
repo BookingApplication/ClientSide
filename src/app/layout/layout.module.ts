@@ -10,6 +10,7 @@ import { GuestNavbarComponent } from './navbar/guest-navbar/guest-navbar.compone
 import { HostNavbarComponent } from './navbar/host-navbar/host-navbar.component';
 import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
 import {SharedModule} from "../shared/shared.module";
+import {AccommodationsModule} from "../accommodations/accommodations.module";
 // import {SharedModule} from "../shared/shared.module";
 
 
@@ -25,15 +26,16 @@ import {SharedModule} from "../shared/shared.module";
   exports: [
     NavbarComponent
   ],
-  imports: [
-    CommonModule,
-    RouterLink,
-    MaterialModule,
-    NgOptimizedImage,
-    MatIconModule,
-    MatDividerModule,
-    SharedModule,
-    // SharedModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterLink,
+        MaterialModule,
+        NgOptimizedImage,
+        MatIconModule,
+        MatDividerModule,
+        SharedModule,
+        AccommodationsModule,
+        // SharedModule,
+    ]
 })
 export class LayoutModule { }

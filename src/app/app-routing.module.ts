@@ -10,7 +10,7 @@ import {CreateAccommodationComponent} from "./accommodations/create-accommodatio
 const routes: Routes = [
   {component: HomeComponent, path:"home"},
   {component: HomeComponent, path:""},
-  {component: AccommodationDetailsComponent, path: "accommodation/:id"},
+  {component: AccommodationDetailsComponent, path: "accommodation/:accommodationId"},
   {component: LoginComponent, path:"login"},
   {component: RegistrationComponent, path:"registration"},
   {component: ManageAccountComponent, path:"manage-account"},

@@ -7,13 +7,14 @@ export interface AccommodationModel {
   accommodationType?: string;
   amenities: Array<string>;
   pictures?: Array<string>;
-  intervalsAndPrices: Array<IntervalAndPrice>;
+  intervals: Array<Interval>;
+  price?: number;
 }
 
-export interface IntervalAndPrice {
+export interface Interval {
   startDate?: number; //number of milliseconds since 1.1.1970
   endDate?: number;
-  price?: number;
+  // price?: number;
 }
 
 // interface IntervalsAndPrices extends Array<IntervalAndPrice>{

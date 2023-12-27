@@ -17,8 +17,14 @@ export class AccommodationsService {
     return httpClient.post<LoggedInModel>(environment.apiHost + 'login', data);
   }
 
-  createAccomodation(accommodation: AccommodationModel){
-    let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
-    httpClient.post<AccommodationModel>(environment.apiHost + 'accommodation/create', accommodation);
+  createAccommodation(accommodation:AccommodationModel):Observable<Boolean>{
+    let httpClient: HttpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
+    return httpClient.post<Boolean>(environment.apiHost+'accommodation/create', accommodation);
+  }
+
+  getAccommodation(id: number):Observable<AccommodationModel> {
+    let httpClient: HttpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
+    return httpClient.get<AccommodationModel>(environment.apiHost+'accommodation/getdetails'+ id);
+
   }
 }

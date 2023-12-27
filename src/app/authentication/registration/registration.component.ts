@@ -11,6 +11,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent {
+  // validPattern = "^[a-zA-Z0-9]{10}$"; // alphanumeric exact 10 letters
+  // numberRegEx: RegExp = /^[1-2]$/; //tacno 1 ili tacno 2
+  val:string = "1";
 
   registrationForm = new FormGroup({
     email: new FormControl("",[Validators.required]),
@@ -21,7 +24,8 @@ export class RegistrationComponent {
     livingAddress: new FormControl("",[Validators.required]),
     telephoneNumber: new FormControl("",[Validators.required]),
     //required field: region: new FormControl('Republika Srbija', [Validators.required]),
-    registrationOption: new FormControl("", [Validators.required]),
+    // registrationOption: new FormControl("", [Validators.required, Validators.pattern(this.numberRegEx)]),
+    registrationOption:new FormControl("1", [Validators.required])
   });
 
 constructor(private service:AuthService, private router: Router) {
@@ -35,8 +39,10 @@ ngOnInit():void{
         return password == confirmPassword;
     }
   register() {
-      console.log(this.registrationForm.value.registrationOption!["1"])
-      if(this.registrationForm.valid) {
+  // console.log(this.registrationForm.value.registrationOption!["1"])
+    console.log(this.registrationForm.value.registrationOption!)
+
+    if(this.registrationForm.valid) {
         const registrationModel: RegistrationModel = {
             email: this.registrationForm.value.email!,
             password: this.registrationForm.value.password!,
@@ -45,11 +51,11 @@ ngOnInit():void{
             livingAddress: this.registrationForm.value.livingAddress!,
             telephoneNumber: this.registrationForm.value.telephoneNumber!,
         };
-        const registerAsGuest: boolean = this.registrationForm.value.registrationOption! === "1";
+        const registerAsGuest: boolean = this.registrationForm.value.registrationOption! == "1";
         //registrationOption 1 for registerAsGuest
         //registrationOption 2 for registerAsHost
 
-        // if (this.isPasswordValid()) {
+        if (this.isPasswordValid()) {
             this.service.register(registrationModel, registerAsGuest).subscribe({
                     //ako je uspesna registracija, prebaci se na home page (mada moze i na login))
                     //moze se registrovani vratiti kao povratna vrednost, sto je najcesce slucaj sa post metodama, ali nije obavezno tako
@@ -62,7 +68,8 @@ ngOnInit():void{
                     }
                 }
             )
-        // }
+        }
     }
   }
+
 }
