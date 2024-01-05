@@ -81,8 +81,9 @@
         <input id="browseFileInput" type="file" accept=".png" (change)="onFileChange($event)" multiple>
 
         <div class="flex-container">
-          <div *ngFor="let photoPath of photoPaths" class="flex-item">
-            <img [src]="photoPath" alt="Uploaded Photo">
+          <div *ngFor="let fileHandle of images" class="flex-item">
+            <img [src]=fileHandle.url alt="Uploaded Photo">
+<!--            src="blob:http://localhost:4200/b686a44e-f24c-45f4-8909-120e929cb630"-->
           </div>
         </div>
         <div id="createBtn">

@@ -1,3 +1,5 @@
+import {FileHandle} from "./file-handle.model";
+
 export interface AccommodationModel {
   name?: string;
   description?: string;
@@ -6,7 +8,7 @@ export interface AccommodationModel {
   maxNbOfGuests?: number;
   accommodationType?: string;
   amenities: Array<string>;
-  pictures?: Array<string>;
+  images: Array<FileHandle>;
   intervals: Array<Interval>;
   price?: number;
 }

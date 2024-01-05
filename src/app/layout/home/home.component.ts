@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AccommodationModel} from "../../accommodations/model/accommodationModel";
+import {AccommodationModel} from "../../accommodations/model/accommodation.model";
 
 @Component({
   selector: 'app-home',

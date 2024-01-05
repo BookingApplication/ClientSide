@@ -1,10 +1,11 @@
 import {Injectable, Injector, Type} from '@angular/core';
 import {LoginModel} from "../authentication/model/login.model";
 import {Observable} from "rxjs";
-import {LoggedInModel} from "../authentication/model/loggedIn.model";
-import {HttpClient} from "@angular/common/http";
+import {UserTokenState} from "../authentication/model/userTokenState.model";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../env/env";
-import {AccommodationModel} from "./model/accommodationModel";
+import {AccommodationModel} from "./model/accommodation.model";
+import {Form} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +13,12 @@ import {AccommodationModel} from "./model/accommodationModel";
 export class AccommodationsService {
 
   constructor(private injector: Injector) { }
-  login(data:LoginModel) : Observable<LoggedInModel> {
-    let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
-    return httpClient.post<LoggedInModel>(environment.apiHost + 'login', data);
-  }
 
-  createAccommodation(accommodation:AccommodationModel):Observable<Boolean>{
+  createAccommodation(accommodation:FormData):Observable<Boolean>{
     let httpClient: HttpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
-    return httpClient.post<Boolean>(environment.apiHost+'accommodation/create', accommodation);
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-type', 'multipart/form-data')
+    return httpClient.post<Boolean>(environment.apiHost+'accommodation/create', accommodation, {headers});
   }
 
   getAccommodation(id: number):Observable<AccommodationModel> {

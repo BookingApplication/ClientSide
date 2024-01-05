@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AccommodationModel, Interval} from "../model/accommodationModel";
+import {AccommodationModel, Interval} from "../model/accommodation.model";
 import {AuthService} from "../../authentication/auth.service";
 import {Router} from "@angular/router";
 import {AccommodationsService} from "../accommodations.service";
 import {AccommodationDetailsComponent} from "../accommodation-details/accommodation-details.component";
+import {interval, toArray} from "rxjs";
+import {FileHandle} from "../model/file-handle.model";
+import {DomSanitizer} from "@angular/platform-browser";
 // import * as L from "leaflet";
 // import {MapComponent} from "../../shared/map/map.component";
 // import {MapService} from "../../shared/map/map.service";
@@ -17,7 +20,7 @@ import {AccommodationDetailsComponent} from "../accommodation-details/accommodat
 
 export class CreateAccommodationComponent {
 
-  constructor(private service:AccommodationsService, private router:Router) {
+  constructor(private service:AccommodationsService, private router:Router, private sanitizer:DomSanitizer) {
 
   }
 
@@ -39,7 +42,7 @@ export class CreateAccommodationComponent {
   ];
   selectedAmenities: boolean[] = Array(this.amenities.length).fill(false);
   intervals : Array<Interval> = [];
-  photoPaths: string[] = [];
+  images:FileHandle[] = [];
 
   createAccommodationForm = new FormGroup({
     name: new FormControl("", [Validators.required]),
@@ -51,6 +54,7 @@ export class CreateAccommodationComponent {
     start_date: new FormControl<Date | null>(null, [Validators.required]),
     end_date: new FormControl<Date | null>(null, [Validators.required]),
     price: new FormControl("", [Validators.required]),
+    files: new FormControl<File[]|null>(null)
   });
 
   create() {
@@ -65,12 +69,13 @@ export class CreateAccommodationComponent {
           maxNbOfGuests:+this.createAccommodationForm.value.max_nb_guests!,
           amenities: selectedAmenitiesList,
           intervals: this.intervals,
-          pictures: this.photoPaths,
+          images: this.images,
           price:+this.createAccommodationForm.value.price!
         };
-        if(this.intervals.length > 0 && this.photoPaths.length >0) {
+        if(this.intervals.length > 0 && this.images.length >0) {
           // call service to create apt
-          this.service.createAccommodation(accommodation).subscribe({
+          const accommodationFormData = this.prepareFormData(accommodation);
+          this.service.createAccommodation(accommodationFormData).subscribe({
             next: () => {
               this.router.navigate(['home'])
               console.log("create accommodation success.")
@@ -84,6 +89,23 @@ export class CreateAccommodationComponent {
           console.log("not valid");
         }
       }
+    }
+
+    prepareFormData(accommodation:AccommodationModel):FormData{
+      const formData = new FormData();
+      formData.append(
+        'accommodation',
+        new Blob([JSON.stringify(accommodation)], {type: 'application/json'})
+      );
+
+      for(let i = 0; i<accommodation.images.length; i++){
+        formData.append(
+          'imageFile',
+          accommodation.images[i].file,
+          accommodation.images[i].file.name
+        )
+      }
+      return formData;
     }
 
   areDatesValid(): boolean {
@@ -135,17 +157,16 @@ export class CreateAccommodationComponent {
   onFileChange(event: any): void {
     const files = event.target.files;
     if (files.length > 0) {
-      const paths: string[] = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const dataURL = e.target.result;
-          paths.push(dataURL);
-        };
-        reader.readAsDataURL(file);
+      for(let i = 0; i<files.length;i++){
+        const fileHandle: FileHandle = {
+          file:files[i],
+          url: this.sanitizer.bypassSecurityTrustUrl(
+            window.URL.createObjectURL(files[i]) //create url from my file
+          )
+        }
+
+        this.images.push(fileHandle);
       }
-      this.photoPaths = paths; //this.photoPaths.concat(paths);
     }
   }
 }
