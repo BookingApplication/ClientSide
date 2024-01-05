@@ -4,7 +4,7 @@ import {RegistrationModel} from "./model/registration.model";
 import {Observable} from "rxjs";
 import {environment} from "../env/env";
 import {LoginModel} from "./model/login.model";
-import {LoggedInModel} from "./model/loggedIn.model";
+import {UserTokenState} from "./model/userTokenState.model";
 // import {ManageAccountDataModel} from "./model/manageAccountData.model";
 import { Type } from '@angular/core';
 
@@ -25,9 +25,9 @@ export class AuthService {
   }
 
   //saljem email i pass, a dobijam name, surname, email -> eventualno prikazi u home/account-details
-  login(data:LoginModel) : Observable<LoggedInModel> {
+  login(data:LoginModel) : Observable<UserTokenState> {
     let httpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
-    return httpClient.post<LoggedInModel>(environment.apiHost + 'login', data);
+    return httpClient.post<UserTokenState>(environment.apiHost + 'auth/login', data);
   }
 
     getAccountData(email: String) : Observable<RegistrationModel> {

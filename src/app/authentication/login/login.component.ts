@@ -5,7 +5,7 @@ import {LoginModel} from "../model/login.model";
 // import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
-import {LoggedInModel} from "../model/loggedIn.model";
+import {UserTokenState} from "../model/userTokenState.model";
 // import { MatInputModule } from '@angular/material/input';
 
 
@@ -29,11 +29,11 @@ export class LoginComponent {
   logIn() {
     if (this.loginForm.valid) {
       const loginModel: LoginModel = {
-        email: this.loginForm.value.email!,
+        username: this.loginForm.value.email!,
         password: this.loginForm.value.password!
       }
       this.service.login(loginModel).subscribe({
-        next:(data:LoggedInModel) =>
+        next:(data:UserTokenState) =>
         {
           this.router.navigate(['home']);
           // localStorage.setItem('user', JSON.stringify({
