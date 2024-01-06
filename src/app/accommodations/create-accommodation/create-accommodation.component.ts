@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccommodationModel, Interval} from "../model/accommodation.model";
 import {AuthService} from "../../authentication/auth.service";
@@ -8,9 +8,7 @@ import {AccommodationDetailsComponent} from "../accommodation-details/accommodat
 import {interval, toArray} from "rxjs";
 import {FileHandle} from "../model/file-handle.model";
 import {DomSanitizer} from "@angular/platform-browser";
-// import * as L from "leaflet";
-// import {MapComponent} from "../../shared/map/map.component";
-// import {MapService} from "../../shared/map/map.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-create-accommodation',
@@ -18,7 +16,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   styleUrls: ['./create-accommodation.component.css']
 })
 
-export class CreateAccommodationComponent {
+export class CreateAccommodationComponent{
 
   constructor(private service:AccommodationsService, private router:Router, private sanitizer:DomSanitizer) {
 
@@ -40,9 +38,17 @@ export class CreateAccommodationComponent {
     "FREE_TOILETRIES",
     "FREE_BREAKFAST",
   ];
+
+  accommodationType: string = 'aparthotel';
   selectedAmenities: boolean[] = Array(this.amenities.length).fill(false);
+  daysInAYear:number = 365;
+  prices: Array<number> = [];
   intervals : Array<Interval> = [];
   images:FileHandle[] = [];
+  val: string = "1";
+
+  new_price_error: string = "";
+  base_price_error: string = "";
 
   createAccommodationForm = new FormGroup({
     name: new FormControl("", [Validators.required]),
@@ -53,13 +59,21 @@ export class CreateAccommodationComponent {
     max_nb_guests: new FormControl("", [Validators.required]),
     start_date: new FormControl<Date | null>(null, [Validators.required]),
     end_date: new FormControl<Date | null>(null, [Validators.required]),
-    price: new FormControl("", [Validators.required]),
-    files: new FormControl<File[]|null>(null)
+    base_price: new FormControl("", [Validators.required]),
+    new_price: new FormControl(""),
+    day_from: new FormControl(""),
+    day_to: new FormControl(""),
+    files: new FormControl<File[]|null>(null),
+    accommodation_type: new FormControl("aparthotel"),
+    price_option: new FormControl("1", [Validators.required])
   });
 
   create() {
       const selectedAmenitiesList = this.amenities
         .filter((amenity, index) => this.selectedAmenities[index]);
+      const isPriceSetPerGuest:boolean = this.createAccommodationForm.value.price_option! == "2";
+    //registrationOption 1 for setPricePerUnit
+    //registrationOption 2 for setPricePerGuest
       if(this.createAccommodationForm.valid){
         const accommodation : AccommodationModel = {
           name: this.createAccommodationForm.value.name!,
@@ -70,13 +84,16 @@ export class CreateAccommodationComponent {
           amenities: selectedAmenitiesList,
           intervals: this.intervals,
           images: this.images,
-          price:+this.createAccommodationForm.value.price!
+          prices: this.prices,
+          accommodationType: this.accommodationType,
+          isPriceSetPerGuest: isPriceSetPerGuest
         };
-        if(this.intervals.length > 0 && this.images.length >0) {
+        if(this.intervals.length > 0 && this.images.length >0 && this.prices.length>0) {
           // call service to create apt
           const accommodationFormData = this.prepareFormData(accommodation);
           this.service.createAccommodation(accommodationFormData).subscribe({
             next: () => {
+              this.createAccommodationForm.reset();
               this.router.navigate(['home'])
               console.log("create accommodation success.")
             },
@@ -135,14 +152,13 @@ export class CreateAccommodationComponent {
     });
   }
 
-  addDateAndPrice() {
+  addDate() {
     if (this.areDatesValid())
     {
       console.log("valid");
       const intervalAndPrice:Interval = {
         startDate : this.createAccommodationForm.value.start_date!.getTime(),
         endDate : this.createAccommodationForm.value.end_date!.getTime(),
-        // price : +this.createAccommodationForm.value.price!
       }
       if(!this.isDateOverlap(intervalAndPrice)) {
         this.intervals.push(intervalAndPrice);
@@ -164,9 +180,43 @@ export class CreateAccommodationComponent {
             window.URL.createObjectURL(files[i]) //create url from my file
           )
         }
-
         this.images.push(fileHandle);
       }
     }
+  }
+
+  onAccommodationTypeChange() {
+    this.accommodationType = this.createAccommodationForm.get('accommodation_type')!.value as string;
+  }
+
+  setNewPrices() {
+    const new_price = +this.createAccommodationForm.value.new_price!;
+    const day_from = +this.createAccommodationForm.value.day_from!;
+    const day_to = +this.createAccommodationForm.value.day_to!;
+    const isFormValid = new_price&&day_from&&day_to && day_from<=day_to;
+    if(!isFormValid)
+      this.new_price_error = "All fields must be filled out. DateFrom must be less or equal to DayTo."
+    else
+      this.new_price_error = "";
+    if(this.prices.length>0){
+        for(let i = day_from; i<=day_to;i++){
+          this.prices[i-1] = new_price;
+      }
+    }
+    else {
+      this.base_price_error = "base price must be set";
+    }
+  }
+
+  setBasePrice() {
+    const base_price  = +this.createAccommodationForm.value.base_price!;
+    if(base_price)
+      this.base_price_error="";
+    if (this.prices.length == 0 && base_price) {
+      for (let i = 0; i < this.daysInAYear; i++) {
+        this.prices.push(base_price);
+      }
+    }
+
   }
 }

@@ -11,8 +11,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent {
-  // validPattern = "^[a-zA-Z0-9]{10}$"; // alphanumeric exact 10 letters
-  // numberRegEx: RegExp = /^[1-2]$/; //tacno 1 ili tacno 2
   val:string = "1";
 
   registrationForm = new FormGroup({
@@ -23,8 +21,6 @@ export class RegistrationComponent {
     surname: new FormControl("",[Validators.required]),
     livingAddress: new FormControl("",[Validators.required]),
     telephoneNumber: new FormControl("",[Validators.required]),
-    //required field: region: new FormControl('Republika Srbija', [Validators.required]),
-    // registrationOption: new FormControl("", [Validators.required, Validators.pattern(this.numberRegEx)]),
     registrationOption:new FormControl("1", [Validators.required])
   });
 

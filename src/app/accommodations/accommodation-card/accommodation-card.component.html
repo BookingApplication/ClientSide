@@ -1,0 +1,6 @@
+<div class="accommodation">
+    <a [routerLink]="['/accommodation', accommodation.id]">
+      <img [src]="accommodation.images[0].url" alt="Accommodation Image">
+      <p>{{ accommodation.name }}</p>
+    </a>
+</div>

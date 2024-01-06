@@ -11,6 +11,9 @@ import { HostNavbarComponent } from './navbar/host-navbar/host-navbar.component'
 import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
 import {SharedModule} from "../shared/shared.module";
 import {AccommodationsModule} from "../accommodations/accommodations.module";
+import {MatCardModule} from "@angular/material/card";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 // import {SharedModule} from "../shared/shared.module";
 
 
@@ -26,16 +29,19 @@ import {AccommodationsModule} from "../accommodations/accommodations.module";
   exports: [
     NavbarComponent
   ],
-    imports: [
-        CommonModule,
-        RouterLink,
-        MaterialModule,
-        NgOptimizedImage,
-        MatIconModule,
-        MatDividerModule,
-        SharedModule,
-        AccommodationsModule,
-        // SharedModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterLink,
+    MaterialModule,
+    NgOptimizedImage,
+    MatIconModule,
+    MatDividerModule,
+    SharedModule,
+    AccommodationsModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    // SharedModule,
+  ]
 })
 export class LayoutModule { }

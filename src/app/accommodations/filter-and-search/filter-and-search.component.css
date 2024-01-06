@@ -1,4 +1,4 @@
-.create-accommodation-container {
+.fileter-and-search-accommodations-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +18,12 @@
   font-size: 10px;
 }
 
+.amenity-column {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+}
+
 #date-range-picker{
   height: 90px;
 }
@@ -25,14 +31,12 @@
 label{
   horiz-align: left;
   font-size: 25px;
+  margin-left: 38.5%;
+  margin-bottom: 10px;
 }
-
-.amenity-column {
-  display: flex;
-  flex-direction: column;
-  justify-self: left;
+.labelAmenities{
+  margin-left: 34%;
 }
-
 
 mat-divider{
   margin-bottom: 10%;
@@ -43,11 +47,13 @@ form {
   flex-direction: column;
   margin: 20px
 }
+
 mat-label{
   text-align: left;
   vertical-align: center;
   margin-left: 10px;
 }
+
 input{
   width: 100%;
   background-color: rgba(241, 241, 241, 0.78);
@@ -66,52 +72,26 @@ mat-card-header{
   margin-bottom: 16px;
 }
 
-/*.half-width {*/
-/*  width: 48%;*/
-/*  margin-bottom: 16px;*/
-/*}*/
-.new-price-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  font-size: 10px;
-}
-
-.new-price-column {
-  display: flex;
-  flex-direction: column;
-  justify-self: left;
-}
-
-/*#createBtn{*/
-/*  color: white;*/
-/*  background-color: rgb(63, 81, 181);*/
-/*}*/
-
 button{
-  width: 130px;
-  margin: 5%;
-  /*margin-bottom: 20px;*/
+  width: 200px;
+  margin-left: 26%;
+  horiz-align: center;
+  margin-bottom: 25px;
 }
 
-img{
-  width: 100px;
-  height: 100px;
-}
-.img-container{
-  border:2px solid black;
-}
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-}
+/*.filter-container{*/
+/*  display: grid;*/
+/*  grid-template-columns: repeat(2, 1fr);*/
+/*  gap: 10px;*/
+/*  font-size: 10px;*/
+/*}*/
 
-.flex-item {
-  flex: 0 0 calc(33.33% - 10px);
-  margin: 5px;
-}
-/*#browseFileInput{*/
-/*  height: 28px;*/
-/*  color: white;*/
-/*    background-color: rgb(63, 81, 181);*/
+/*.filter-column {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-self: center;*/
+/*}*/
+
+/*.search-width{*/
+/*  width: 380px;*/
 /*}*/

@@ -1,0 +1,27 @@
+.accommodation {
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  width: calc(33.333% - 20px);
+  box-sizing: border-box;
+  float: left;
+}
+
+.image-container{
+  width: calc(33.333% - 20px);
+  box-sizing: border-box;
+  float: left;
+}
+img {
+  width: 70%;
+ height: 200px;
+  object-fit: cover;
+}
+
+.comments-container{
+
+}
+
+.reservation-calendar{
+
+}

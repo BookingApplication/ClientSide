@@ -1,18 +1,7 @@
-.accommodation {
-  padding: 10px;
-  text-align: center;
-  margin: 10px;
+.image-container{
   width: calc(33.333% - 20px);
   box-sizing: border-box;
   float: left;
-}
-
-.accommodations-container {
-  overflow: hidden;
-}
-
-img {
-  width: 70%;
 }
 
 .clear-row {

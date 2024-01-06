@@ -12,16 +12,21 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import {RouterLink} from "@angular/router";
+import { FilterAndSearchComponent } from './filter-and-search/filter-and-search.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
   declarations: [
     AccommodationDetailsComponent,
     CreateAccommodationComponent,
-    AccommodationCardComponent
+    AccommodationCardComponent,
+    FilterAndSearchComponent
   ],
   exports: [
-    AccommodationCardComponent
+    AccommodationCardComponent,
+    FilterAndSearchComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +40,8 @@ import {RouterLink} from "@angular/router";
     FormsModule,
     MatDatepickerModule,
     RouterLink,
+    MatSelectModule,
+    MatRadioModule,
   ]
 })
 export class AccommodationsModule { }

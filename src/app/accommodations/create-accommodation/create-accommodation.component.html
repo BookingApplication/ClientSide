@@ -4,7 +4,7 @@
       <mat-card-title>Create Accommodation</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="createAccommodationForm">
+      <form [formGroup]="createAccommodationForm" enctype="multipart/form-data">
           <mat-form-field class="full-width">
             <mat-label>Name</mat-label>
             <input matInput type="text" name="name" formControlName="name" />
@@ -32,16 +32,16 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Accommodation type</mat-label>
-          <select matNativeControl required>
-            <option value="aparthotel">Aparthotel</option>
-            <option value="apartment">Apartment</option>
-            <option value="cottage">Cottage</option>
-            <option value="motel">Motel</option>
-            <option value="caravan">Caravan</option>
-            <option value="boat">Boat</option>
-            <option value="log cabin">Log Cabin</option>
-            <option value="chalet">Chalet</option>
-          </select>
+          <mat-select formControlName="accommodation_type" (selectionChange)="onAccommodationTypeChange()" required>
+            <mat-option aria-selected="true" value="aparthotel" >Aparthotel</mat-option>
+            <mat-option value="apartment">Apartment</mat-option>
+            <mat-option value="cottage">Cottage</mat-option>
+            <mat-option value="motel">Motel</mat-option>
+            <mat-option value="caravan">Caravan</mat-option>
+            <mat-option value="boat">Boat</mat-option>
+            <mat-option value="log cabin">Log Cabin</mat-option>
+            <mat-option value="chalet">Chalet</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-divider></mat-divider>
         <label>Amenities</label>
@@ -51,7 +51,7 @@
           </div>
         </div>
         <mat-divider></mat-divider>
-        <label>Availability and Prices</label>
+        <label>Availability</label>
         <mat-form-field class="full-width">
           <mat-label>Start Date</mat-label>
           <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" />
@@ -66,16 +66,43 @@
           <mat-datepicker #endDatePicker></mat-datepicker>
         </mat-form-field>
         <div id="addDateAndPriceBtn">
-          <button (click)="addDateAndPrice()" type="submit" color="primary" mat-raised-button>Add</button>
+          <button (click)="addDate()" type="submit" color="primary" mat-raised-button>Add</button>
+        </div>
+      <mat-divider></mat-divider>
+<!--price per guest/per unit-->
+        <mat-form-field class="full-width">
+          <mat-label>Base price:</mat-label>
+          <input matInput type="number" min="0" name="base_price" formControlName="base_price" />
+        </mat-form-field>
+        <p>{{base_price_error}}</p>
+        <div>
+          <button mat-raised-button type="submit" color="primary" (click)="setBasePrice()">Set price</button>
+        </div>
+        <label>Set price for specific days:</label>
+        <mat-form-field class="full-width">
+          <mat-label>New price:</mat-label>
+          <input matInput type="number" min="0" name="new_price" formControlName="new_price"/>
+        </mat-form-field>
+        <div class="new-price-container">
+        <mat-form-field class="new-price-column">
+          <mat-label>Day from:</mat-label>
+          <input matInput type="number" min="1" max="{{daysInAYear}}" name="day_from" formControlName="day_from"/>
+        </mat-form-field>
+        <mat-form-field class="new-price-column">
+          <mat-label>Day to:</mat-label>
+          <input matInput type="number" min="1" max="{{daysInAYear}}" name="day_to" formControlName="day_to"/>
+        </mat-form-field>
+        </div>
+        <p>{{new_price_error}}</p>
+        <div>
+          <button mat-raised-button type="submit" color="primary" (click)="setNewPrices()">Alter price</button>
         </div>
 
-<!--price per guest/per accommodation-->
-        <mat-form-field class="full-width">
-          <mat-label>Price</mat-label>
-          <input matInput type="number" min="0" name="price" formControlName="price" />
-        </mat-form-field>
+        <mat-radio-group aria-label="Select an option" [value]="val" formControlName="price_option">
+          <mat-radio-button id="perUnitOption" checked="true" [value]="1">Set price per unit</mat-radio-button>
+          <mat-radio-button id="perGuestOption" [value]="2">Set price per guest</mat-radio-button>
+        </mat-radio-group>
 
-<!--        <p>Selected range: {{range.value | json}}</p>-->
         <mat-divider></mat-divider>
         <label>Images</label>
         <input id="browseFileInput" type="file" accept=".png" (change)="onFileChange($event)" multiple>

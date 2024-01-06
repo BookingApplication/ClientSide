@@ -16,9 +16,7 @@ export class AccommodationsService {
 
   createAccommodation(accommodation:FormData):Observable<Boolean>{
     let httpClient: HttpClient = this.injector.get<HttpClient>(HttpClient as Type<HttpClient>);
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-type', 'multipart/form-data')
-    return httpClient.post<Boolean>(environment.apiHost+'accommodation/create', accommodation, {headers});
+    return httpClient.post<Boolean>(environment.apiHost+'accommodation/create', accommodation);
   }
 
   getAccommodation(id: number):Observable<AccommodationModel> {

@@ -1,15 +1,8 @@
 <h3>{{title}}</h3>
 <div *ngFor="let accommodation of accommodations; let i = index">
-  <div class="accommodation">
-    <a [routerLink]="['/accommodation', accommodation.id]">
-      <img [src]="accommodation.imageUrl" alt="Accommodation Image">
-      <p>{{ accommodation.name }}</p>
-    </a>
-<!--    <app-accommodation-card [accommodation]="accommodation"></app-accommodation-card>-->
-  </div>
-
+    <app-accommodation-card [accommodation]="accommodation"></app-accommodation-card>
   <div *ngIf="i % 3 === 2" class="clear-row"></div>
 </div>
 <mat-divider></mat-divider>
-<!--<app-map></app-map>-->
-
+<app-filter-and-search [accommodations]="accommodations"></app-filter-and-search>
+<mat-divider></mat-divider>
