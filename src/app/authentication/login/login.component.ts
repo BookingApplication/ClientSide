@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {LoginModel} from "../model/login.model";
-// import {RegistrationModel} from "../model/registration.model";
-// import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 import {UserTokenState} from "../model/userTokenState.model";
-// import { MatInputModule } from '@angular/material/input';
-
 
 @Component({
   selector: 'app-login',
@@ -35,13 +31,9 @@ export class LoginComponent {
       this.service.login(loginModel).subscribe({
         next:(data:UserTokenState) =>
         {
+          localStorage.setItem('user', data.accessToken)
+          this.service.setUser();
           this.router.navigate(['home']);
-          // localStorage.setItem('user', JSON.stringify({
-          //   // name:data.name,
-          //   // surname:data.surname,
-          //   // email:data.email,
-          //   token:data.token
-          // }))
           },
         error:(_) => {console.log("Registration error.")}
       })

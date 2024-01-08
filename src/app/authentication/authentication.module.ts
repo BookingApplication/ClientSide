@@ -7,13 +7,16 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatRadioModule} from "@angular/material/radio";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {Interceptor} from "./interceptor";
+import {AppComponent} from "../app.component";
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
     imports: [
         CommonModule,
@@ -23,6 +26,14 @@ import {MatRadioModule} from "@angular/material/radio";
         MatButtonModule,
         ReactiveFormsModule,
         MatRadioModule
-    ]
+    ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent]
 })
 export class AuthenticationModule { }
