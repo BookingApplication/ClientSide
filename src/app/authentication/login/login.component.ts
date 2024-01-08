@@ -34,7 +34,7 @@ export class LoginComponent {
           localStorage.setItem('user', data.accessToken)
           this.service.setUser();
           this.router.navigate(['home']);
-          },
+        },
         error:(_) => {console.log("Registration error.")}
       })
 

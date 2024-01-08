@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../authentication/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,9 +7,26 @@ import {Router} from "@angular/router";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
-  // role:string = '';
+export class NavbarComponent implements OnInit{
 
-  // constructor(private authService: AuthService, private router: Router) {
-  // }
+  role:string = '';
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.authService.userState.subscribe((result:string) => {
+      this.role = result;
+      console.log(this.role);
+    })
+    console.log(this.role)
+  }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next:(_) => {
+        localStorage.removeItem('user');
+        this.authService.setUser();
+        this.router.navigate(['login']);
+      }});
+    }
 }

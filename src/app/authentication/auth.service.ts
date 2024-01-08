@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   logout() : Observable<string>{
-    return this.http.get(environment.apiHost + "logOut", {
+    return this.http.get(environment.apiHost + "auth/logout", {
       responseType: 'text',
     });
   }
@@ -40,11 +40,26 @@ export class AuthService {
    if(this.isLoggedIn()){
      const accessToken:any = localStorage.getItem('user');
      const helper : JwtHelperService = new JwtHelperService();
-     return helper.decodeToken(accessToken).role[0].authority;
+     this.logToken(accessToken);
+     return helper.decodeToken(accessToken).role;
    }
    return null;
   }
 
+  logToken(token:string)
+  {
+      const helper : JwtHelperService = new JwtHelperService();
+      const decodedToken = helper.decodeToken(token);
+      console.log(decodedToken);
+      const id = decodedToken.Id;    //Id: 53
+      const aud = decodedToken.aud;  //aud: "web"
+      const exp = decodedToken.exp;  //exp: 1704722862
+      const iat = decodedToken.iat;  //iat: 1704721062
+      const iss = decodedToken.iss;  //iss: "team23"
+      const role = decodedToken.role;//role: "ROLE_GUEST"
+      const sub = decodedToken.sub;  //sub: "53myemail@gmail.com"
+
+  }
   isLoggedIn():boolean{
    return localStorage.getItem('user') != null;
   }
