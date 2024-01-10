@@ -75,11 +75,11 @@ export class AuthService {
       return this.http.post<RegistrationModel>(environment.apiHost + 'host/register', data);
   }
 
-    getAccountData(email: String) : Observable<RegistrationModel> {
-        return this.http.get<RegistrationModel>(environment.apiHost + 'account/' + email);
+    getAccountData() : Observable<RegistrationModel> {
+        return this.http.get<RegistrationModel>(environment.apiHost + 'account/get');
     }
 
     updateAccountData(data: RegistrationModel):Observable<RegistrationModel> {
-        return this.http.post<RegistrationModel>(environment.apiHost + 'account', data);
+        return this.http.post<RegistrationModel>(environment.apiHost + 'account/update', data);
     }
 }
