@@ -18,7 +18,7 @@ export class AccommodationsService {
 
 
   getAccommodationDetails(id: number):Observable<AccommodationWithImagesModel> {
-    return this.http.get<AccommodationWithImagesModel>(environment.apiHost + 'accommodation/getDetails' + id)
+    return this.http.get<AccommodationWithImagesModel>(environment.apiHost + 'accommodation/getDetails/' + id)
       .pipe(
         map(accommodationWithImagesModel => {
           this.imageProcessingService.createImages(accommodationWithImagesModel);
@@ -29,7 +29,7 @@ export class AccommodationsService {
 
 
   getAllAvailableAccommodations():Observable<Set<AccommodationWithImagesModel>> {
-    return this.http.get<Set<AccommodationWithImagesModel>>(environment.apiHost+'accommodations/getAllAvailable').pipe(
+    return this.http.get<Set<AccommodationWithImagesModel>>(environment.apiHost+'accommodation/getAllAvailable').pipe(
         map(accommodationsWithImagesModel => {
           accommodationsWithImagesModel.forEach(accommodationWithImageModel =>{
             this.imageProcessingService.createImages(accommodationWithImageModel);

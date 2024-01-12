@@ -1,20 +1,19 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../authentication/auth.service";
 import {Router} from "@angular/router";
 import {RegistrationModel} from "../../authentication/model/registration.model";
-// import {ManageAccountDataModel} from "../../authentication/model/manageAccountData.model";
 
 @Component({
   selector: 'app-manage-account',
   templateUrl: './manage-account.component.html',
   styleUrls: ['./manage-account.component.css']
 })
-export class ManageAccountComponent implements AfterViewInit{
+export class ManageAccountComponent implements OnInit{
 
   accountDetailsForm = new FormGroup({
     email: new FormControl("",[Validators.required]),
-    password: new FormControl("",[Validators.required]),
+    password: new FormControl(""),
     name: new FormControl("",[Validators.required]),
     surname: new FormControl("",[Validators.required]),
     livingAddress: new FormControl("",[Validators.required]),
@@ -34,40 +33,36 @@ export class ManageAccountComponent implements AfterViewInit{
 
   }
 
+  ngOnInit(): void {
+    this.initAccountData();
+    }
+
   initAccountData():void{
-    //change logic to work w/ jwt
-    //input into localStorage
-    //   let email = localStorage.getItem("email");
-    //   if (email==null) email="";
-    let email = "guest1@example.com";
-      this.service.getAccountData(email).subscribe({
-        next: (data: RegistrationModel) => { this.accountData = data; },
+      this.service.getAccountData().subscribe({
+        next: (data: RegistrationModel) =>
+        { this.accountData = data;
+          this.fillInForm()
+        },
         error: (_) => {console.log("Error getting data.")}
     })
   }
 
   fillInForm()
   {
-    this.accountDetailsForm.value.email = this.accountData.email;
-    this.accountDetailsForm.value.password = this.accountData.password;
-    this.accountDetailsForm.value.name = this.accountData.name;
-    this.accountDetailsForm.value.surname = this.accountData.surname;
-    this.accountDetailsForm.value.livingAddress = this.accountData.livingAddress;
-    this.accountDetailsForm.value.telephoneNumber = this.accountData.telephoneNumber;
-  }
-
-  ngAfterViewInit(): void {
-    this.initAccountData();
-    this.fillInForm();
+    this.accountDetailsForm.patchValue({
+      email: this.accountData.email,
+      name: this.accountData.name,
+      surname: this.accountData.surname,
+      livingAddress: this.accountData.livingAddress,
+      telephoneNumber: this.accountData.telephoneNumber
+    });
   }
 
   saveChanges() {
     if (this.accountDetailsForm.valid) {
-      //mozda moze da ostane registration model, jer se mogu promeniti svi podaci,
-      //nije ograniceno da se ne moze promeniti email
       const newAccountData: RegistrationModel = {
         email: this.accountDetailsForm.value.email!,
-        password: this.accountDetailsForm.value.password!,
+        password: this.accountDetailsForm.value.password != null? this.accountDetailsForm.value.password : "",
         name: this.accountDetailsForm.value.name!,
         surname: this.accountDetailsForm.value.surname!,
         livingAddress: this.accountDetailsForm.value.livingAddress!,
@@ -85,8 +80,7 @@ export class ManageAccountComponent implements AfterViewInit{
       )
     }
   }
-// constructor(private router:Router) {
-// }
+
   cancel() {
     this.router.navigate(['home']);
   }
