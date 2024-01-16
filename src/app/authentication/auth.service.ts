@@ -24,7 +24,6 @@ export class AuthService {
    this.user$.next(this.getRole());
  }
 
-  //saljem email i pass, a dobijam token-> eventualno iscitaj podatke iz tokena i prikazi u home/account-details
   login(data:LoginModel) : Observable<UserTokenState> {
     return this.http.post<UserTokenState>(environment.apiHost + 'auth/login', data,
       {headers: this.headers,});
@@ -82,4 +81,17 @@ export class AuthService {
     updateAccountData(data: RegistrationModel):Observable<RegistrationModel> {
         return this.http.post<RegistrationModel>(environment.apiHost + 'account/update', data);
     }
+
+  getProfileImage(id: number): Observable<Blob> {
+   const url = `${environment.apiHost}accommodation/${id}/profile-picture`;
+    return this.http.get<Blob>(url);
+  }
+
+  deleteAccount(id:number):Observable<string> {
+    const role = this.getRole();
+    if(role[0]['authority'] == "HOST")
+      return this.http.delete<string>(environment.apiHost+"host/delete/"+id);
+    else
+      return this.http.delete<string>(environment.apiHost+"guest/delete/"+id);
+  }
 }

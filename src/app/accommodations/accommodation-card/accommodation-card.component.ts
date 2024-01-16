@@ -11,11 +11,4 @@ export class AccommodationCardComponent {
   @Input()
   accommodation: AccommodationModel;
 
-  @Output()
-  clicked: EventEmitter<number> = new EventEmitter<number>();
-
-  onAccommodationClicked(): void {
-    // this.clicked.emit(this.accommodation.id);
-  }
-
 }

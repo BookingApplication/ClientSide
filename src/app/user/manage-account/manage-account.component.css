@@ -39,7 +39,7 @@ mat-card-header{
   margin-bottom: 16px;
 }
 
-#saveBtn, #cancelBtn{
+#saveBtn, #cancelBtn, #deleteBtn{
   color: white;
   background-color: rgb(63, 81, 181);
 }

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AccommodationModel} from "../../accommodations/model/accommodation.model";
 import {DomUtil} from "leaflet";
 import get = DomUtil.get;
+import {AuthService} from "../../authentication/auth.service";
+import {AccommodationsService} from "../../accommodations/accommodations.service";
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,10 @@ import get = DomUtil.get;
 export class HomeComponent implements OnInit{
   title:string = "Accommodations";
   accommodations:AccommodationModel[] = [];
+
+  constructor(private service:AccommodationsService){
+  }
+
 
    getTestElements()
    {
@@ -201,11 +207,20 @@ export class HomeComponent implements OnInit{
 
      return [accommodation1, accommodation2, accommodation3, accommodation4, accommodation5, accommodation6];
    }
+
    ngOnInit() {
      this.accommodations = this.getTestElements();
-    //pozovi servis za dobavljanje accommodation-a
 
-
-  }
+     this.service.getAllAvailableAccommodations().subscribe({
+       next: (data) => {
+         for (let accommodationWithImagesModel of data) {
+           this.accommodations.push(accommodationWithImagesModel.accommodation);
+         }
+       },
+       error: (_) => {
+         console.log("Error fetching accommodations.")
+       }
+     })
+   }
 
 }

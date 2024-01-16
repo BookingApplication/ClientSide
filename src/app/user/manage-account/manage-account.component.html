@@ -37,6 +37,7 @@
         <div>
         <button (click)="saveChanges()" class="floated" mat-raised-button id="saveBtn" type="submit">Save</button>
         <button (click)="cancel()"  class="floated" mat-raised-button id="cancelBtn" type="submit">Cancel</button>
+        <button *ngIf="role == 'ROLE_HOST' || role == 'ROLE_GUEST'" (click)="deleteAccount()" class="floated" mat-raised-button id="deleteBtn" type="submit">Delete</button>
         </div></form>
     </mat-card-content>
   </mat-card>
