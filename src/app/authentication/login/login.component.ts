@@ -4,6 +4,7 @@ import {LoginModel} from "../model/login.model";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 import {UserTokenState} from "../model/userTokenState.model";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,9 @@ export class LoginComponent {
         {
           localStorage.setItem('user', data.accessToken)
           this.service.setUser();
+          const helper : JwtHelperService = new JwtHelperService();
+          const id = helper.decodeToken(localStorage.getItem('user')!).Id;
+
           this.router.navigate(['home']);
         },
         error:(_) => {console.log("Registration error.")}

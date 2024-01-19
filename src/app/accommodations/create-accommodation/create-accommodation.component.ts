@@ -39,6 +39,7 @@ export class CreateAccommodationComponent{
     "FREE_BREAKFAST",
   ];
 
+  selectedInterval:number;
   accommodationType: string = 'aparthotel';
   selectedAmenities: boolean[] = Array(this.amenities.length).fill(false);
   daysInAYear:number = 365;
@@ -65,7 +66,8 @@ export class CreateAccommodationComponent{
     day_to: new FormControl(""),
     files: new FormControl<File[]|null>(null),
     accommodation_type: new FormControl("aparthotel"),
-    price_option: new FormControl("1", [Validators.required])
+    price_option: new FormControl("1", [Validators.required]),
+    added_intervals: new FormControl(""),
   });
 
   create() {
@@ -76,6 +78,7 @@ export class CreateAccommodationComponent{
     //registrationOption 2 for setPricePerGuest
       if(this.createAccommodationForm.valid){
         const accommodation : AccommodationModel = {
+          //id: undefined,
           name: this.createAccommodationForm.value.name!,
           description:this.createAccommodationForm.value.description!,
           location:this.createAccommodationForm.value.address! + " " + this.createAccommodationForm.value.city!,
@@ -88,12 +91,13 @@ export class CreateAccommodationComponent{
           accommodationType: this.accommodationType,
           isPriceSetPerGuest: isPriceSetPerGuest
         };
+        console.log(accommodation)
         if(this.intervals.length > 0 && this.images.length >0 && this.prices.length>0) {
           // call service to create apt
           const accommodationFormData = this.prepareFormData(accommodation);
           this.service.createAccommodation(accommodationFormData).subscribe({
             next: () => {
-              this.createAccommodationForm.reset();
+              // this.createAccommodationForm.reset();
               this.router.navigate(['home'])
               console.log("create accommodation success.")
             },
@@ -171,13 +175,14 @@ export class CreateAccommodationComponent{
   }
 
   onFileChange(event: any): void {
+    this.images = [];
     const files = event.target.files;
     if (files.length > 0) {
       for(let i = 0; i<files.length;i++){
         const fileHandle: FileHandle = {
           file:files[i],
           url: this.sanitizer.bypassSecurityTrustUrl(
-            window.URL.createObjectURL(files[i]) //create url from my file
+            window.URL.createObjectURL(files[i])
           )
         }
         this.images.push(fileHandle);
@@ -187,6 +192,14 @@ export class CreateAccommodationComponent{
 
   onAccommodationTypeChange() {
     this.accommodationType = this.createAccommodationForm.get('accommodation_type')!.value as string;
+  }
+
+  onSelectedIntervalChange(){
+    this.selectedInterval = +this.createAccommodationForm.get('added_intervals')!.value!;
+  }
+
+  removeInterval(){
+    this.intervals.splice(this.selectedInterval, 1);
   }
 
   setNewPrices() {

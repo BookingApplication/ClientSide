@@ -13,12 +13,12 @@ const routes: Routes = [
   {component: HomeComponent, path:"home"},
   {component: HomeComponent, path:""},
   {component: AccommodationDetailsComponent, path: "accommodation/:accommodationId"},
-    // canActivate:[AuthGuard], data:{role:['ADMIN', 'GUEST','HOST']}},
+  // canActivate:[AuthGuard], data:{role:['ADMIN', 'GUEST','HOST']}
   {component: LoginComponent, path:"login"},
   {component: RegistrationComponent, path:"registration"},
   {component: ManageAccountComponent, path:"manage-account"},
   {component: AccommodationDetailsComponent, path: "accommodation-details"},
-  {component: CreateAccommodationComponent, path: "create-accommodation"}
+  {component: CreateAccommodationComponent, path: "create-accommodation"},
 ];
 
 @NgModule({

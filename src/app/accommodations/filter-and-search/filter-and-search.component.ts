@@ -14,6 +14,11 @@ export class FilterAndSearchComponent implements OnInit{
       console.log(this.accommodations)
   }
 
+  // postThisComponentonParent()
+  // {
+  //   emit.event(filteredList);
+  // emit.event
+  // }
 
   amenities : string[] = [
     "FREE_WIFI",

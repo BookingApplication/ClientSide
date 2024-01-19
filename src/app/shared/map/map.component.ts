@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import * as L from 'leaflet';
 import {MapService} from "./map.service";
 
@@ -9,6 +9,9 @@ import {MapService} from "./map.service";
 })
 export class MapComponent implements AfterViewInit {
   private map: any;
+
+  @Input()
+  location:string;
 
   constructor(private mapService: MapService) {}
 
@@ -28,8 +31,7 @@ export class MapComponent implements AfterViewInit {
       }
     );
     tiles.addTo(this.map);
-    this.registerOnClick()
-    //this.search()
+    this.search(this.location)
   }
 
   registerOnClick(): void {
@@ -50,10 +52,10 @@ export class MapComponent implements AfterViewInit {
   search(location:string): void {
     this.mapService.search(location).subscribe({
       next: (result) => {
-        console.log(result);  //ocaj rezultat moze biti niz adresa, ako nismo odredili grad
+        console.log(result);  //ovaj rezultat moze biti niz adresa, ako nismo odredili grad
         L.marker([result[0].lat, result[0].lon])
           .addTo(this.map)
-          .bindPopup('Pozdrav iz' + location)
+          .bindPopup(location)
           .openPopup();
       },
       error: () => {},

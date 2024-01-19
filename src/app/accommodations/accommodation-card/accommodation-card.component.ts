@@ -11,4 +11,5 @@ export class AccommodationCardComponent {
   @Input()
   accommodation: AccommodationModel;
 
+
 }

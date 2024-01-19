@@ -1,0 +1,83 @@
+.accommodation-details-container{
+  width: 600px;
+  margin: auto;
+}
+
+mat-card-title{
+    horiz-align: center;
+    text-align: center;
+    font-size: 24pt;
+    width: 100%;
+    margin: 15% 15% 20% 15%;
+}
+
+.main-image{
+ overflow: clip;
+  width: inherit;
+}
+
+.location{
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.interval-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+mat-chip-set{
+  margin-bottom: 10px;
+}
+
+label{
+    font-weight: bolder;
+    font-size: 15pt;
+}
+
+.intervals-mat-card{
+  margin-top: 15px;
+}
+
+
+.header {
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.details {
+    padding: 20px;
+}
+
+.amenities mat-chip {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+full-calendar{
+  margin-top: 20px;
+  margin-bottom: 20px;;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.reservation-form{
+    width: 100%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+h1{
+font-size: 22px;
+  text-align: center;
+}
+
+button{
+  width: 130px;
+  margin-left: 38%;
+}

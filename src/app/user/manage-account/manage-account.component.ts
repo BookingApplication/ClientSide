@@ -94,9 +94,9 @@ export class ManageAccountComponent implements OnInit {
   deleteAccount() {
     this.service.deleteAccount(this.accountData.id!).subscribe({
       next: (data: string) => {
+        localStorage.removeItem('user');
         console.log(data);
       },
-
       error: (err) => {
         console.log();
       }

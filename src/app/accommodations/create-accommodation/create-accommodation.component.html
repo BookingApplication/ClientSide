@@ -65,8 +65,18 @@
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
         </mat-form-field>
-        <div id="addDateAndPriceBtn">
+        <div id="addDatesBtn">
           <button (click)="addDate()" type="submit" color="primary" mat-raised-button>Add</button>
+        </div>
+        <div *ngIf="intervals.length > 0">
+          <label>Remove interval</label>
+          <mat-form-field class="full-width">
+            <mat-label>Added intervals</mat-label>
+            <mat-select formControlName="added_intervals" (selectionChange)="onSelectedIntervalChange()">
+              <mat-option *ngFor="let interval of intervals; let i = index" value="{{i}}">{{interval.startDate | date: 'yyy-MM-dd'}} - {{interval.endDate | date: 'yyyy-MM-dd'}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button (click)="removeInterval()" color="primary">Remove</button>
         </div>
       <mat-divider></mat-divider>
 <!--price per guest/per unit-->
@@ -105,7 +115,7 @@
 
         <mat-divider></mat-divider>
         <label>Images</label>
-        <input id="browseFileInput" type="file" accept=".png" (change)="onFileChange($event)" multiple>
+        <input id="browseFileInput" type="file" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)" multiple>
 
         <div class="flex-container">
           <div *ngFor="let fileHandle of images" class="flex-item">

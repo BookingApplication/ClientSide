@@ -1,5 +1,4 @@
 import {AccommodationModel} from "./accommodation.model";
-import {FileHandle} from "./file-handle.model";
 
 export interface AccommodationWithImagesModel{
     accommodation: AccommodationModel,

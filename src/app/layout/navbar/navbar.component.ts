@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../authentication/auth.service";
 import {Router} from "@angular/router";
+import {AccommodationsService} from "../../accommodations/accommodations.service";
+import {ImageProcessingService} from "../../image-processing.service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,7 @@ import {Router} from "@angular/router";
 export class NavbarComponent implements OnInit{
 
   role:string = '';
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private accommodationService: AccommodationsService) {
   }
 
   ngOnInit(): void {
@@ -29,4 +31,16 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['login']);
       }});
     }
+
+  // getAccommodations() {
+  //   const test_id = 4;
+  //   this.accommodationService.getAccommodationDetails(4).subscribe({
+  //     next: async (data)=>{
+  //       console.log(data.accommodation.images);
+  //     },
+  //     error(_){
+  //     }
+  //     }
+  //   )
+  // }
 }

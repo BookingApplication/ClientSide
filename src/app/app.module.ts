@@ -16,6 +16,10 @@ import {SharedModule} from "./shared/shared.module";
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {AuthGuard} from "./authentication/guard/auth.guard";
+// import {FullCalendarModule} from "@fullcalendar/angular";
+// import { Calendar, CalendarOptions } from '@fullcalendar/angular';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     HttpClientModule,
     SharedModule,
     MatDatepickerModule,
+    FullCalendarModule,
     MatNativeDateModule
   ],
   providers: [

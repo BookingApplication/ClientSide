@@ -15,6 +15,11 @@ import {RouterLink} from "@angular/router";
 import { FilterAndSearchComponent } from './filter-and-search/filter-and-search.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatChipsModule} from "@angular/material/chips";
+import {FullCalendarModule} from "@fullcalendar/angular";
+import {MatIconModule} from "@angular/material/icon";
+// import {MatNativeDateModule} from "@angular/material/core";
+
 
 
 @NgModule({
@@ -22,7 +27,8 @@ import {MatRadioModule} from "@angular/material/radio";
     AccommodationDetailsComponent,
     CreateAccommodationComponent,
     AccommodationCardComponent,
-    FilterAndSearchComponent
+    FilterAndSearchComponent,
+    // UpdateAccommodationComponent
   ],
   exports: [
     AccommodationCardComponent,
@@ -42,6 +48,10 @@ import {MatRadioModule} from "@angular/material/radio";
     RouterLink,
     MatSelectModule,
     MatRadioModule,
+    MatChipsModule,
+    FullCalendarModule,
+    MatIconModule,
+    // MatNativeDateModule,
   ]
 })
 export class AccommodationsModule { }

@@ -13,6 +13,7 @@ export interface AccommodationModel {
   intervals: Array<Interval>;
   prices: Array<number>;  //price for each day of the year, prices can vary
   isPriceSetPerGuest: boolean;
+  isReservationManual?: boolean;
 }
 
 export interface Interval {

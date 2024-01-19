@@ -6,6 +6,7 @@ import {environment} from "../env/env";
 import {LoginModel} from "./model/login.model";
 import {UserTokenState} from "./model/userTokenState.model";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {Form} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -82,11 +83,15 @@ export class AuthService {
         return this.http.post<RegistrationModel>(environment.apiHost + 'account/update', data);
     }
 
-  getProfileImage(id: number): Observable<Blob> {
-   const url = `${environment.apiHost}accommodation/${id}/profile-picture`;
+  getProfilePicture(id: number): Observable<Blob> {
+   const url = `${environment.apiHost}account/${id}/profile-picture`;
     return this.http.get<Blob>(url);
   }
 
+  uploadProfilePicture(formData: FormData, id:number){
+   const url = `${environment.apiHost}account/${id}/profile-picture`
+    return this.http.post(url, formData)
+  }
   deleteAccount(id:number):Observable<string> {
     const role = this.getRole();
     if(role[0]['authority'] == "HOST")
