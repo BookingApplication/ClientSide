@@ -13,6 +13,9 @@
         {{amenity}}
       </mat-chip>
     </mat-chip-set>
+    <div class="rating_container">
+      {{rating}}<div><mat-icon class="star">star</mat-icon></div>
+    </div>
 
     <label>Description</label>
         <p>{{ accommodation.description }}</p>
@@ -25,17 +28,6 @@
   <div><label>Minimum number of guests </label>{{accommodation.minNbOfGuests}}</div>
   <div><label>Maximum number of guests </label>{{accommodation.maxNbOfGuests}}</div>
 
-<!--    <full-calendar [options]="calendarOptions"></full-calendar>-->
-
-<!--    <mat-card *ngIf ="intervalInfo.startDate != -1" class="intervals-mat-card">-->
-<!--      <label>Interval information</label>-->
-<!--      <strong>{{intervalInfo.startDate | date}} - {{intervalInfo.endDate | date}}</strong>-->
-<!--      <div>{{intervalInfo.price | currency:'EUR':true}}</div>-->
-<!--      <div>{{accommodation.isPriceSetPerGuest?"Price per guest: " : "Price per accommodation"}}-->
-<!--      {{intervalInfo.pricePerUnit}}-->
-<!--      </div>-->
-<!--    </mat-card>-->
-
     <mat-card class="intervals-mat-card">
     <label>Available intervals</label>
 
@@ -43,15 +35,11 @@
       <strong>{{ interval.startDate | date }}</strong> - <strong>{{ interval.endDate | date }}</strong>
       <div>{{getPriceOnInterval(interval) | currency:'EUR':true}}</div>
       <div>{{ accommodation.isPriceSetPerGuest ? 'Price per guest: ' : 'Price per accommodation: ' }}
-        {{getPriceOnInterval(interval)/Math.floor((interval.endDate! - interval.startDate!) / (24 * 60 * 60 * 1000)) + 1 | currency:'EUR':true}}</div>
+        {{getPriceOnInterval(interval)/Math.floor((interval.endDate! - interval.startDate!) / (24 * 60 * 60 * 1000)) | currency:'EUR':true}}</div>
     </div>
   </mat-card>
 
-
-
-<!--    <div class="rating-container">Rating: 5 stars - display stars</div>-->
-<!--    <mat-icon *ngFor="let star of stars" [style.color]="star.color">star</mat-icon>-->
-<!--    <mat-card class="comments-mat-card">-->
+    <!--    <mat-card class="comments-mat-card">-->
 <!--      <div *ngFor="let comment of comments">-->
 <!--          display comments-->
 <!--      </div>-->

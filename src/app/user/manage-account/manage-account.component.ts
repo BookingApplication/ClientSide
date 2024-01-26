@@ -43,7 +43,8 @@ export class ManageAccountComponent implements OnInit {
   }
 
   initAccountData(): void {
-    this.service.getAccountData().subscribe({
+    const email = this.service.getEmail();
+    this.service.getAccountData(email!).subscribe({
       next: (data: RegistrationModel) => {
         this.accountData = data;
         this.fillInForm()
@@ -67,17 +68,23 @@ export class ManageAccountComponent implements OnInit {
   saveChanges() {
     if (this.accountDetailsForm.valid) {
       const newAccountData: RegistrationModel = {
-        email: this.accountDetailsForm.value.email!,
-        password: this.accountDetailsForm.value.password != null ? this.accountDetailsForm.value.password : "",
-        name: this.accountDetailsForm.value.name!,
-        surname: this.accountDetailsForm.value.surname!,
-        livingAddress: this.accountDetailsForm.value.livingAddress!,
-        telephoneNumber: this.accountDetailsForm.value.telephoneNumber!
+        email: this.accountDetailsForm.value.email!.trim(),
+        password: this.accountDetailsForm.value.password?.trim() != null ? this.accountDetailsForm.value.password : "",
+        name: this.accountDetailsForm.value.name!.trim(),
+        surname: this.accountDetailsForm.value.surname!.trim(),
+        livingAddress: this.accountDetailsForm.value.livingAddress!.trim(),
+        telephoneNumber: this.accountDetailsForm.value.telephoneNumber!.trim()
       };
-
-      this.service.updateAccountData(newAccountData).subscribe({
+      const email = this.service.getEmail();
+      this.service.updateAccountData(newAccountData, email!).subscribe({
           next: (data) => {
+            //log out if email has been changed
+            if(newAccountData.email! != email){
+              localStorage.removeItem('user');
+              this.service.setUser();
+            }
             this.router.navigate(['home'])
+
           },
           error: (_) => {
             console.log("Update account data error.")
@@ -93,8 +100,10 @@ export class ManageAccountComponent implements OnInit {
 
   deleteAccount() {
     this.service.deleteAccount(this.accountData.id!).subscribe({
-      next: (data: string) => {
+      next: (data) => {
         localStorage.removeItem('user');
+        this.service.setUser();
+        this.router.navigate(['home']);
         console.log(data);
       },
       error: (err) => {

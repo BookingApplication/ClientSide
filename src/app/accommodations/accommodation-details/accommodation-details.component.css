@@ -6,6 +6,26 @@
 mat-card-title{
     horiz-align: center;
     text-align: center;
+    font-size: 21pt;
+    width: 100%;
+    margin: 15% 15% 20% 15%;
+}
+.star{
+  color: orange;
+}
+.rating_container {
+  display: flex;
+  align-items: center;
+font-size: 23px;
+}
+
+img{
+  width: 100%;
+}
+
+mat-card-title{
+    horiz-align: center;
+    text-align: center;
     font-size: 24pt;
     width: 100%;
     margin: 15% 15% 20% 15%;

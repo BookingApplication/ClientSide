@@ -18,7 +18,7 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
 
 export class CreateAccommodationComponent{
 
-  constructor(private service:AccommodationsService, private router:Router, private sanitizer:DomSanitizer) {
+  constructor(private service:AccommodationsService, private router:Router, private sanitizer:DomSanitizer, private authenticationService:AuthService) {
 
   }
 
@@ -95,7 +95,8 @@ export class CreateAccommodationComponent{
         if(this.intervals.length > 0 && this.images.length >0 && this.prices.length>0) {
           // call service to create apt
           const accommodationFormData = this.prepareFormData(accommodation);
-          this.service.createAccommodation(accommodationFormData).subscribe({
+          const hostEmail = this.authenticationService.getEmail();
+          this.service.createAccommodation(accommodationFormData, hostEmail!).subscribe({
             next: () => {
               // this.createAccommodationForm.reset();
               this.router.navigate(['home'])

@@ -22,7 +22,8 @@ export class RegistrationComponent {
   address_error: string = "";
   password_error: string = "";
   email_error: string = "";
-  profilePicture: FileHandle;
+  profile_picture_error: string = "";
+  profilePicture: FileHandle | null = null;
 
   registrationForm = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
@@ -86,9 +87,12 @@ export class RegistrationComponent {
       this.email_error = "Please enter a valid email";
     else
       this.email_error = "";
-
+    if(!this.profilePicture)
+      this.profile_picture_error = "Profile picture must be selected";
+    else
+      this.profile_picture_error = "";
     if (this.registrationForm.valid && this.phoneOnlyContainsNumbers() && this.addressContainsStringAndNumber()
-      && this.isEmailFormatValid() && this.isPasswordValid() && this.profilePicture != null) {
+    && this.isEmailFormatValid() && this.isPasswordValid() && this.profilePicture != null) {
       this.registration_form_error_message = "";
       const registrationModel: RegistrationModel = {
         email: this.registrationForm.value.email!,
@@ -104,7 +108,7 @@ export class RegistrationComponent {
 
       this.service.register(registrationModel, registerAsGuest).subscribe({
           next: (data) => {
-            this.service.uploadProfilePicture(this.prepareFormData(this.profilePicture), data.id!).subscribe({
+            this.service.uploadProfilePicture(this.prepareFormData(this.profilePicture!), data.id!).subscribe({
               next: (response) => {
                 console.log(response);
               }

@@ -11,7 +11,7 @@ import {ImageProcessingService} from "../../image-processing.service";
 })
 export class NavbarComponent implements OnInit{
 
-  role:string = '';
+  role:string;
   constructor(private authService: AuthService, private router: Router, private accommodationService: AccommodationsService) {
   }
 
@@ -31,16 +31,4 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['login']);
       }});
     }
-
-  // getAccommodations() {
-  //   const test_id = 4;
-  //   this.accommodationService.getAccommodationDetails(4).subscribe({
-  //     next: async (data)=>{
-  //       console.log(data.accommodation.images);
-  //     },
-  //     error(_){
-  //     }
-  //     }
-  //   )
-  // }
 }

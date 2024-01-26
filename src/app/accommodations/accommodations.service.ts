@@ -12,8 +12,8 @@ export class AccommodationsService {
 
   constructor(private http : HttpClient, private imageProcessingService:ImageProcessingService) { }
 
-  createAccommodation(accommodation:FormData):Observable<Boolean>{
-    return this.http.post<Boolean>(environment.apiHost+'accommodation/create', accommodation);
+  createAccommodation(accommodation:FormData, hostEmail:string):Observable<Boolean>{
+    return this.http.post<Boolean>(environment.apiHost+'accommodation/create/' + hostEmail, accommodation);
   }
 
 

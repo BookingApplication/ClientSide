@@ -209,7 +209,7 @@ export class HomeComponent implements OnInit{
    }
 
    ngOnInit() {
-     this.accommodations = this.getTestElements();
+     //this.accommodations = this.getTestElements();
 
      this.service.getAllAvailableAccommodations().subscribe({
        next: (data) => {
@@ -223,4 +223,7 @@ export class HomeComponent implements OnInit{
      })
    }
 
+  OnFilteredReturned(accommodationModels: AccommodationModel[]) {
+    this.accommodations = accommodationModels;
+  }
 }

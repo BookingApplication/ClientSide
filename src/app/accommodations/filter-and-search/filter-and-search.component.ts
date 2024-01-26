@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AccommodationModel, Interval} from "../model/accommodation.model";
 import {FormGroup, Validators, FormControl} from "@angular/forms";
 import {isWrappedTsNodeExpr} from "@angular/compiler-cli/src/ngtsc/annotations/common";
@@ -14,11 +14,8 @@ export class FilterAndSearchComponent implements OnInit{
       console.log(this.accommodations)
   }
 
-  // postThisComponentonParent()
-  // {
-  //   emit.event(filteredList);
-  // emit.event
-  // }
+  @Output()
+  filtered: EventEmitter<AccommodationModel[]> = new EventEmitter<AccommodationModel[]>();
 
   amenities : string[] = [
     "FREE_WIFI",
@@ -69,8 +66,6 @@ export class FilterAndSearchComponent implements OnInit{
     const endDate = this.searchAccommodationsForm.value.end_date!;
     const location = address + " " + city;
 
-    //TODO
-    // if(areDatesValid())
 
     for(let acccommodation of this.accommodations){
       if(acccommodation.location!.includes(location,0) &&
@@ -103,6 +98,7 @@ export class FilterAndSearchComponent implements OnInit{
     }
     console.log("filter per ammenities ");
     console.log(this.filterAccommodationsResults);
+    this.filtered.emit(this.filterAccommodationsResults);
   }
 
   //vraca smestaj samo sa onim intervalima cija je cena u opsegu filtera
@@ -125,6 +121,7 @@ export class FilterAndSearchComponent implements OnInit{
         }
         console.log("filter per price range ")
         console.log(this.filterAccommodationsResults)
+        this.filtered.emit(this.filterAccommodationsResults);
       }
     }
   }
@@ -137,6 +134,7 @@ export class FilterAndSearchComponent implements OnInit{
     }
     console.log("filter per accommodation");
     console.log(this.filterAccommodationsResults);
+    this.filtered.emit(this.filterAccommodationsResults);
   }
 
   //redni broj dana u godini, koristi se kao indeks za dobavljanje cena
@@ -174,19 +172,20 @@ export class FilterAndSearchComponent implements OnInit{
     return intervalsInRange;
   }
 
-  //filtriranje po svim parametrima
-  //izlaz iz prethodne funkcije se koristi kao ulaz u narednu funkciju za filtriranje
-  filterAll() {
-    this.filterPerAccommodationType(this.accommodations);
-    let filtrationPerAccommodationTypeResults = structuredClone(this.filterAccommodationsResults);
-    console.log(filtrationPerAccommodationTypeResults);
-    this.filterPerAmenities(filtrationPerAccommodationTypeResults);
-    let filtrationPerAmenitiesResults = structuredClone(this.filterAccommodationsResults);
-    console.log(filtrationPerAmenitiesResults);
-    this.filterPerPriceRange(filtrationPerAmenitiesResults);
-    console.log(this.filterAccommodationsResults)
-
-    //sada se rezultat svih filtriranja nalazi u this.filterAccommodationsResults
-    //output listu filtriranih za prikaz u roditelju...
-  }
+  // //filtriranje po svim parametrima
+  // //izlaz iz prethodne funkcije se koristi kao ulaz u narednu funkciju za filtriranje
+  // filterAll() {
+  //   this.filterPerAccommodationType(this.accommodations);
+  //   let filtrationPerAccommodationTypeResults = structuredClone(this.filterAccommodationsResults);
+  //   console.log(filtrationPerAccommodationTypeResults);
+  //   this.filterPerAmenities(filtrationPerAccommodationTypeResults);
+  //   let filtrationPerAmenitiesResults = structuredClone(this.filterAccommodationsResults);
+  //   console.log(filtrationPerAmenitiesResults);
+  //   this.filterPerPriceRange(filtrationPerAmenitiesResults);
+  //   console.log(this.filterAccommodationsResults)
+  //
+  //   //sada se rezultat svih filtriranja nalazi u this.filterAccommodationsResults
+  //   //output listu filtriranih za prikaz u roditelju...
+  //   this.filtered.emit(this.filterAccommodationsResults);
+  // }
 }

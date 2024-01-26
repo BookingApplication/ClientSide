@@ -15,20 +15,17 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./accommodation-details.component.css']
 })
 export class AccommodationDetailsComponent implements OnInit {
-  accommodations = this.getTestElements();
-  accommodation = this.accommodations[0];
 
   protected readonly Math = Math;
   accommodationWithImagesModel: AccommodationWithImagesModel;
-  // accommodation = this.accommodationWithImagesModel.accommodation;
+  accommodation:AccommodationModel;
   ReservationFormGroup = new FormGroup({
     start_date: new FormControl<Date|null>(null, [Validators.required]),
     end_date: new FormControl<Date|null>(null, [Validators.required]),
     number_of_guests: new FormControl("", [Validators.required]),
   });
 
-  stars: { color: string }[] = [];
-  rating = 4.2;
+  rating:number = 4.2;
 
   intervalInfo =  {
     startDate: -1,
@@ -36,19 +33,6 @@ export class AccommodationDetailsComponent implements OnInit {
     price: -1,
     pricePerUnit: -1,
   };
-
-  calendarOptions: CalendarOptions = {
-    plugins: [
-      dayGridPlugin,
-      interactionPlugin,
-    ],
-    initialView: 'dayGridMonth',
-    dateClick: this.handleDateClick.bind(this), // MUST ensure `this` context is maintained
-    events: this.accommodation.intervals.map(interval => ({
-      start: new Date(interval.startDate!),
-      end: new Date(interval.endDate!),
-    })),
-  }
 
   // @ts-ignore
   handleDateClick(arg) {
@@ -155,14 +139,13 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
+   this.activatedRoute.params.subscribe((params) => {
       const id = +params['accommodationId'];
       this.accommodationsService.getAccommodationDetails(id).subscribe({
         next: (data) => {
           this.accommodationWithImagesModel = data;
-          this.stars = Array(this.rating).fill({ color: 'orange' })
-            .concat(Array(5 - this.rating).fill({ color: 'grey' }));
-        },
+          this.accommodation = this.accommodationWithImagesModel.accommodation;
+          },
         error: () => {
           console.log("Error fetching accommoation details.");
         }
