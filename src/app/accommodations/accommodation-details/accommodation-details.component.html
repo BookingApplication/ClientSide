@@ -31,11 +31,11 @@
     <mat-card class="intervals-mat-card">
     <label>Available intervals</label>
 
-    <div class="interval-card" *ngFor="let interval of accommodation.intervals">
+    <div class="interval-card" *ngFor="let interval of accommodation.intervalsAndPrices">
       <strong>{{ interval.startDate | date }}</strong> - <strong>{{ interval.endDate | date }}</strong>
-      <div>{{getPriceOnInterval(interval) | currency:'EUR':true}}</div>
+      <div>{{interval.price | currency:'EUR':true}}</div>
       <div>{{ accommodation.isPriceSetPerGuest ? 'Price per guest: ' : 'Price per accommodation: ' }}
-        {{getPriceOnInterval(interval)/Math.floor((interval.endDate! - interval.startDate!) / (24 * 60 * 60 * 1000)) | currency:'EUR':true}}</div>
+        {{interval.price!/Math.floor((interval.endDate! - interval.startDate!) / (24 * 60 * 60 * 1000)) | currency:'EUR':true}}</div>
     </div>
   </mat-card>
 

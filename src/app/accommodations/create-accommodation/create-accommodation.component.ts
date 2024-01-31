@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AccommodationModel, Interval} from "../model/accommodation.model";
+import {AccommodationModel, IntervalAndPrice} from "../model/accommodation.model";
 import {AuthService} from "../../authentication/auth.service";
 import {Router} from "@angular/router";
 import {AccommodationsService} from "../accommodations.service";
@@ -39,17 +39,14 @@ export class CreateAccommodationComponent{
     "FREE_BREAKFAST",
   ];
 
-  selectedInterval:number;
+  selectedIntervalAndPrice:number;
   accommodationType: string = 'aparthotel';
   selectedAmenities: boolean[] = Array(this.amenities.length).fill(false);
-  daysInAYear:number = 365;
-  prices: Array<number> = [];
-  intervals : Array<Interval> = [];
+  intervalsAndPrices : Array<IntervalAndPrice> = [];
   images:FileHandle[] = [];
   val: string = "1";
 
-  new_price_error: string = "";
-  base_price_error: string = "";
+  interval_overlap_error = "";
 
   createAccommodationForm = new FormGroup({
     name: new FormControl("", [Validators.required]),
@@ -60,45 +57,39 @@ export class CreateAccommodationComponent{
     max_nb_guests: new FormControl("", [Validators.required]),
     start_date: new FormControl<Date | null>(null, [Validators.required]),
     end_date: new FormControl<Date | null>(null, [Validators.required]),
-    base_price: new FormControl("", [Validators.required]),
-    new_price: new FormControl(""),
-    day_from: new FormControl(""),
-    day_to: new FormControl(""),
+    price: new FormControl("", [Validators.required]),
     files: new FormControl<File[]|null>(null),
     accommodation_type: new FormControl("aparthotel"),
     price_option: new FormControl("1", [Validators.required]),
-    added_intervals: new FormControl(""),
+    added_intervals_and_prices: new FormControl(""),
   });
 
   create() {
       const selectedAmenitiesList = this.amenities
         .filter((amenity, index) => this.selectedAmenities[index]);
       const isPriceSetPerGuest:boolean = this.createAccommodationForm.value.price_option! == "2";
-    //registrationOption 1 for setPricePerUnit
-    //registrationOption 2 for setPricePerGuest
+    //priceOption 1 for setPricePerUnit
+    //priceOption 2 for setPricePerGuest
       if(this.createAccommodationForm.valid){
         const accommodation : AccommodationModel = {
-          //id: undefined,
           name: this.createAccommodationForm.value.name!,
           description:this.createAccommodationForm.value.description!,
           location:this.createAccommodationForm.value.address! + " " + this.createAccommodationForm.value.city!,
           minNbOfGuests:+this.createAccommodationForm.value.min_nb_guests!,
           maxNbOfGuests:+this.createAccommodationForm.value.max_nb_guests!,
           amenities: selectedAmenitiesList,
-          intervals: this.intervals,
+          intervalsAndPrices: this.intervalsAndPrices,
           images: this.images,
-          prices: this.prices,
           accommodationType: this.accommodationType,
           isPriceSetPerGuest: isPriceSetPerGuest
         };
         console.log(accommodation)
-        if(this.intervals.length > 0 && this.images.length >0 && this.prices.length>0) {
-          // call service to create apt
+        if(this.intervalsAndPrices.length > 0 && this.images.length >0) {
           const accommodationFormData = this.prepareFormData(accommodation);
           const hostEmail = this.authenticationService.getEmail();
           this.service.createAccommodation(accommodationFormData, hostEmail!).subscribe({
             next: () => {
-              // this.createAccommodationForm.reset();
+              this.createAccommodationForm.reset();
               this.router.navigate(['home'])
               console.log("create accommodation success.")
             },
@@ -134,12 +125,12 @@ export class CreateAccommodationComponent{
     const startDate = this.createAccommodationForm.value.start_date!;
     const endDate = this.createAccommodationForm.value.end_date!;
     const today = new Date();
-
-    return startDate && endDate && startDate < endDate && startDate > today && endDate > today;
+    //allow for accommodation to be available for a single day
+    return startDate && endDate && startDate <= endDate && startDate >= today && endDate >= today;
   }
 
-  isDateOverlap(newInterval: Interval): boolean {
-    return this.intervals.some(existingInterval => {
+  isDateOverlap(newInterval: IntervalAndPrice): boolean {
+    return this.intervalsAndPrices.some(existingInterval => {
       if (
         newInterval.startDate &&
         newInterval.endDate &&
@@ -157,22 +148,27 @@ export class CreateAccommodationComponent{
     });
   }
 
-  addDate() {
+  addIntervalAndPrice() {
+    this.interval_overlap_error = "";
     if (this.areDatesValid())
     {
       console.log("valid");
-      const intervalAndPrice:Interval = {
+      const intervalAndPrice:IntervalAndPrice = {
         startDate : this.createAccommodationForm.value.start_date!.getTime(),
         endDate : this.createAccommodationForm.value.end_date!.getTime(),
+        price: +this.createAccommodationForm.value.price!
       }
       if(!this.isDateOverlap(intervalAndPrice)) {
-        this.intervals.push(intervalAndPrice);
+        this.intervalsAndPrices.push(intervalAndPrice);
+      }
+      else{
+        this.interval_overlap_error = "Interval overlaps with existing interval.";
       }
     }
     else
       console.log("not valid")
 
-    console.log(this.intervals);
+    console.log(this.intervalsAndPrices);
   }
 
   onFileChange(event: any): void {
@@ -196,41 +192,10 @@ export class CreateAccommodationComponent{
   }
 
   onSelectedIntervalChange(){
-    this.selectedInterval = +this.createAccommodationForm.get('added_intervals')!.value!;
+    this.selectedIntervalAndPrice = +this.createAccommodationForm.get('added_intervals_and_prices')!.value!;
   }
 
   removeInterval(){
-    this.intervals.splice(this.selectedInterval, 1);
-  }
-
-  setNewPrices() {
-    const new_price = +this.createAccommodationForm.value.new_price!;
-    const day_from = +this.createAccommodationForm.value.day_from!;
-    const day_to = +this.createAccommodationForm.value.day_to!;
-    const isFormValid = new_price&&day_from&&day_to && day_from<=day_to;
-    if(!isFormValid)
-      this.new_price_error = "All fields must be filled out. DateFrom must be less or equal to DayTo."
-    else
-      this.new_price_error = "";
-    if(this.prices.length>0){
-        for(let i = day_from; i<=day_to;i++){
-          this.prices[i-1] = new_price;
-      }
-    }
-    else {
-      this.base_price_error = "base price must be set";
-    }
-  }
-
-  setBasePrice() {
-    const base_price  = +this.createAccommodationForm.value.base_price!;
-    if(base_price)
-      this.base_price_error="";
-    if (this.prices.length == 0 && base_price) {
-      for (let i = 0; i < this.daysInAYear; i++) {
-        this.prices.push(base_price);
-      }
-    }
-
+    this.intervalsAndPrices.splice(this.selectedIntervalAndPrice, 1);
   }
 }

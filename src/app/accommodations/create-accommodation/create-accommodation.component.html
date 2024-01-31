@@ -65,48 +65,29 @@
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
         </mat-form-field>
-        <div id="addDatesBtn">
-          <button (click)="addDate()" type="submit" color="primary" mat-raised-button>Add</button>
+
+        <mat-form-field class="full-width">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" min="0" name="price" formControlName="price" />
+        </mat-form-field>
+
+<!--        <p *ngIf="interval_overlap_error">{{interval_overlap_error}}</p>-->
+
+        <div id="addIntervalAndPriceBtn">
+          <button (click)="addIntervalAndPrice()" type="submit" color="primary" mat-raised-button>Add</button>
         </div>
-        <div *ngIf="intervals.length > 0">
+
+        <div *ngIf="intervalsAndPrices.length > 0">
           <label>Remove interval</label>
           <mat-form-field class="full-width">
             <mat-label>Added intervals</mat-label>
-            <mat-select formControlName="added_intervals" (selectionChange)="onSelectedIntervalChange()">
-              <mat-option *ngFor="let interval of intervals; let i = index" value="{{i}}">{{interval.startDate | date: 'yyy-MM-dd'}} - {{interval.endDate | date: 'yyyy-MM-dd'}}</mat-option>
+            <mat-select formControlName="added_intervals_and_prices" (selectionChange)="onSelectedIntervalChange()">
+              <mat-option *ngFor="let interval of intervalsAndPrices; let i = index" value="{{i}}">{{interval.startDate | date: 'yyy-MM-dd'}} - {{interval.endDate | date: 'yyyy-MM-dd'}} | <b>{{interval.price | currency:'EUR'}}</b></mat-option>
             </mat-select>
           </mat-form-field>
           <button mat-raised-button (click)="removeInterval()" color="primary">Remove</button>
         </div>
       <mat-divider></mat-divider>
-<!--price per guest/per unit-->
-        <mat-form-field class="full-width">
-          <mat-label>Base price:</mat-label>
-          <input matInput type="number" min="0" name="base_price" formControlName="base_price" />
-        </mat-form-field>
-        <p>{{base_price_error}}</p>
-        <div>
-          <button mat-raised-button type="submit" color="primary" (click)="setBasePrice()">Set price</button>
-        </div>
-        <label>Set price for specific days:</label>
-        <mat-form-field class="full-width">
-          <mat-label>New price:</mat-label>
-          <input matInput type="number" min="0" name="new_price" formControlName="new_price"/>
-        </mat-form-field>
-        <div class="new-price-container">
-        <mat-form-field class="new-price-column">
-          <mat-label>Day from:</mat-label>
-          <input matInput type="number" min="1" max="{{daysInAYear}}" name="day_from" formControlName="day_from"/>
-        </mat-form-field>
-        <mat-form-field class="new-price-column">
-          <mat-label>Day to:</mat-label>
-          <input matInput type="number" min="1" max="{{daysInAYear}}" name="day_to" formControlName="day_to"/>
-        </mat-form-field>
-        </div>
-        <p>{{new_price_error}}</p>
-        <div>
-          <button mat-raised-button type="submit" color="primary" (click)="setNewPrices()">Alter price</button>
-        </div>
 
         <mat-radio-group aria-label="Select an option" [value]="val" formControlName="price_option">
           <mat-radio-button id="perUnitOption" checked="true" [value]="1">Set price per unit</mat-radio-button>

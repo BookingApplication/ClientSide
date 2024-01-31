@@ -10,15 +10,15 @@ export interface AccommodationModel {
   accommodationType?: string;
   amenities: Array<string>;
   images: Array<FileHandle>;
-  intervals: Array<Interval>;
-  prices: Array<number>;  //price for each day of the year, prices can vary
+  intervalsAndPrices: Array<IntervalAndPrice>;
   isPriceSetPerGuest: boolean;
   isReservationManual?: boolean;
 }
 
-export interface Interval {
+export interface IntervalAndPrice {
   startDate?: number; //number of milliseconds since 1.1.1970
   endDate?: number;
+  price?:number;
 }
 
 // accommodation types:

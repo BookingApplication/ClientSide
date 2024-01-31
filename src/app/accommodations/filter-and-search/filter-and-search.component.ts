@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AccommodationModel, Interval} from "../model/accommodation.model";
+import {AccommodationModel, IntervalAndPrice} from "../model/accommodation.model";
 import {FormGroup, Validators, FormControl} from "@angular/forms";
 import {isWrappedTsNodeExpr} from "@angular/compiler-cli/src/ngtsc/annotations/common";
 import {elementAt} from "rxjs";
@@ -103,27 +103,27 @@ export class FilterAndSearchComponent implements OnInit{
 
   //vraca smestaj samo sa onim intervalima cija je cena u opsegu filtera
   filterPerPriceRange(accommodations:AccommodationModel[]) {
-    this.filterAccommodationsResults = [];
-    const priceFrom = +this.filterAccommodationsForm.value.price_from!;
-    const priceTo = +this.filterAccommodationsForm.value.price_to!;
-    if(priceFrom > priceTo || priceFrom == priceTo)
-      this.price_range_error_message = "Invalid input.";
-    else {
-      this.price_range_error_message="";
-      for(let accommodation of accommodations)
-      {
-        const accommodationToAdd = structuredClone(accommodation);
-        const intervalsInRange = this.getIntervalsInRange(accommodation.intervals,priceFrom,priceTo,accommodation.prices);
-        if(intervalsInRange.length > 0)
-        {
-          accommodationToAdd.intervals = intervalsInRange;
-          this.filterAccommodationsResults.push(accommodationToAdd);
-        }
-        console.log("filter per price range ")
-        console.log(this.filterAccommodationsResults)
-        this.filtered.emit(this.filterAccommodationsResults);
-      }
-    }
+    // this.filterAccommodationsResults = [];
+    // const priceFrom = +this.filterAccommodationsForm.value.price_from!;
+    // const priceTo = +this.filterAccommodationsForm.value.price_to!;
+    // if(priceFrom > priceTo || priceFrom == priceTo)
+    //   this.price_range_error_message = "Invalid input.";
+    // else {
+    //   this.price_range_error_message="";
+    //   for(let accommodation of accommodations)
+    //   {
+    //     const accommodationToAdd = structuredClone(accommodation);
+    //     const intervalsInRange = this.getIntervalsInRange(accommodation.intervals,priceFrom,priceTo,accommodation.prices);
+    //     if(intervalsInRange.length > 0)
+    //     {
+    //       accommodationToAdd.intervals = intervalsInRange;
+    //       this.filterAccommodationsResults.push(accommodationToAdd);
+    //     }
+    //     console.log("filter per price range ")
+    //     console.log(this.filterAccommodationsResults)
+    //     this.filtered.emit(this.filterAccommodationsResults);
+    //   }
+    // }
   }
 
   filterPerAccommodationType(accommodations:AccommodationModel[]) {
@@ -149,8 +149,8 @@ export class FilterAndSearchComponent implements OnInit{
   //intervals: dostupni intervali u smestaju
   //prices: lista cena smestaja za svaki dan u godini
   //za svaki interval, dobavlja cene smestaja u datom intervalu, i proverava da li se nalaze u okviru ogranicenja definisanog filterom
-  getIntervalsInRange(intervals: Array<Interval>, lowerPriceLimit:number, upperPriceLimit:number, prices:number[]) {
-    const intervalsInRange: Interval[] = [];
+  getIntervalsInRange(intervals: Array<IntervalAndPrice>, lowerPriceLimit:number, upperPriceLimit:number, prices:number[]) {
+    const intervalsInRange: IntervalAndPrice[] = [];
     let inRange = true;
     for(let interval of intervals)
     {
