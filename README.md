@@ -2,7 +2,8 @@
 This is front-end part of the Booking  application
 
 Technologies used in developement: 
-
- 	Workframe: Angular(TS, HTML, CSS), Angular Material/Bootstrap (to be determined)
-
-   	Security: JWT
+    Angular (TypeScript, HTML, CSS)
+    Angular Material or Bootstrap
+    Figma for design
+    Leaflet for integrating maps
+    JWT for authentication and security
