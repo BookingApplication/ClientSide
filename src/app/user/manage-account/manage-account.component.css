@@ -1,0 +1,51 @@
+.account-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.account-card {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px
+}
+mat-label{
+  text-align: left;
+  vertical-align: center;
+  margin-left: 10px;
+}
+input{
+  width: 100%;
+  background-color: rgba(241, 241, 241, 0.78);
+  height: 40px;
+}
+
+mat-card-header{
+  font-family: Lato, Helvetica, sans-serif;
+  font-style: normal;
+  margin-left: 30%;
+  margin-top: 30px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+#saveBtn, #cancelBtn, #deleteBtn{
+  color: white;
+  background-color: rgb(63, 81, 181);
+}
+
+button{
+  width: 100px;
+  /*margin-top: 20px;*/
+  margin: 5%;
+}

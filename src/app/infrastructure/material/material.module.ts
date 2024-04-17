@@ -7,6 +7,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -20,6 +21,7 @@ import {MatInputModule} from "@angular/material/input";
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
+    BrowserAnimationsModule,
     MatInputModule,
   ],
   exports: [

@@ -1,1 +1,60 @@
-<p>registration works!</p>
+<div class="registration-container">
+  <mat-card class="registration-card">
+    <mat-card-header>
+      <mat-card-title>Registration</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+    <form [formGroup]="registrationForm">
+
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="email" name="email" formControlName="email">
+      </mat-form-field>
+      <p *ngIf="email_error">{{email_error}}</p>
+
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="password" name="password" formControlName="password">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" placeholder="confirm password" name="confirmPassword" formControlName="confirmPassword">
+      </mat-form-field>
+      <p *ngIf="password_error">{{password_error}}</p>
+
+
+      <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="name" name="name" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Surname</mat-label>
+        <input matInput type="text" placeholder="surname" name="surname" formControlName="surname">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Living Address</mat-label>
+        <input matInput type="text" placeholder="living address" name="livingAddress" formControlName="livingAddress">
+      </mat-form-field>
+      <p *ngIf="address_error">{{address_error}}</p>
+      <mat-form-field class="full-width">
+        <mat-label>Telephone Number</mat-label>
+        <input matInput type="tel" placeholder="telephone number" name="telephoneNumber" formControlName="telephoneNumber">
+      </mat-form-field>
+      <p *ngIf="telephone_number_error">{{telephone_number_error}}</p>
+      <input id="browseFileInput" type="file" accept=".png, .jpg, .jpeg" (change)="browseSelectionChanged($event)">
+      <p *ngIf="profile_picture_error">{{profile_picture_error}}</p>
+      <mat-radio-group aria-label="Select an option" [value]="val" formControlName="registrationOption">
+        <mat-radio-button id="guestOption" checked="true" [value]="1">Register as guest</mat-radio-button>
+        <mat-radio-button id="hostOption" [value]="2">Register as host</mat-radio-button>
+      </mat-radio-group>
+
+      <p>{{registration_form_error_message}}</p>
+
+      <button (click)="register()" mat-raised-button color="primary" type="submit">Register</button>
+    </form>
+    </mat-card-content>
+  </mat-card>
+</div>

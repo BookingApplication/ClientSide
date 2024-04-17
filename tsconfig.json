@@ -2,7 +2,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strictPropertyInitialization": false,
     "baseUrl": "./",
+    "paths": {
+      "@fullcalendar/common": ["node_modules/@fullcalendar/common"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -22,12 +26,13 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "allowSyntheticDefaultImports": true,
   }
 }

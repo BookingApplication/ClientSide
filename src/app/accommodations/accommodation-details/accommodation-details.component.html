@@ -1,0 +1,81 @@
+
+<mat-card class="accommodation-details-container">
+    <mat-card-header>
+        <mat-card-title>{{ accommodation.name }}</mat-card-title>
+    </mat-card-header>
+
+  <mat-card-content>
+    <div class="main-image">
+      <img [src]="accommodation.images[0].url" alt="{{ accommodation.name }}">
+    </div>
+    <mat-chip-set aria-label="Amenities">
+      <mat-chip *ngFor="let amenity of accommodation.amenities">
+        {{amenity}}
+      </mat-chip>
+    </mat-chip-set>
+    <div class="rating_container">
+      {{rating}}<div><mat-icon class="star">star</mat-icon></div>
+    </div>
+
+    <label>Description</label>
+        <p>{{ accommodation.description }}</p>
+    <label>Type </label>
+    <span>{{accommodation.accommodationType?.toUpperCase()}}</span>
+   <div class="location">
+     <p>{{ accommodation.location }}</p>
+     <app-map [location]="accommodation.location!"></app-map>
+   </div>
+  <div><label>Minimum number of guests </label>{{accommodation.minNbOfGuests}}</div>
+  <div><label>Maximum number of guests </label>{{accommodation.maxNbOfGuests}}</div>
+
+    <mat-card class="intervals-mat-card">
+    <label>Available intervals</label>
+
+    <div class="interval-card" *ngFor="let interval of accommodation.intervalsAndPrices">
+      <strong>{{ interval.startDate | date }}</strong> - <strong>{{ interval.endDate | date }}</strong>
+      <div>{{interval.price | currency:'EUR':true}}</div>
+      <div>{{ accommodation.isPriceSetPerGuest ? 'Price per guest: ' : 'Price per accommodation: ' }}
+        {{interval.price!/Math.floor((interval.endDate! - interval.startDate!) / (24 * 60 * 60 * 1000)) | currency:'EUR':true}}</div>
+    </div>
+  </mat-card>
+
+    <!--    <mat-card class="comments-mat-card">-->
+<!--      <div *ngFor="let comment of comments">-->
+<!--          display comments-->
+<!--      </div>-->
+<!--    </mat-card>-->
+
+
+    <mat-divider></mat-divider>
+
+    <div class="reservation-form">
+      <h1>Create reservation</h1>
+      <form [formGroup]="ReservationFormGroup">
+        <mat-form-field class="full-width">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" />
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" />
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Number of guests:</mat-label>
+          <input matInput type="number" min="0" name="numberOfGuests" formControlName="number_of_guests"/>
+        </mat-form-field>
+
+        <div id="reservreBtn">
+          <button (click)="createReservation()" type="submit" color="primary" mat-raised-button>Create</button>
+        </div>
+      </form>
+    </div>
+
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,117 @@
+.create-accommodation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.accommodation-card {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+.amenities-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 10px;
+}
+
+#date-range-picker{
+  height: 90px;
+}
+
+label{
+  horiz-align: left;
+  font-size: 25px;
+}
+
+.amenity-column {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+}
+
+
+mat-divider{
+  margin-bottom: 10%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px
+}
+mat-label{
+  text-align: left;
+  vertical-align: center;
+  margin-left: 10px;
+}
+input{
+  width: 100%;
+  background-color: rgba(241, 241, 241, 0.78);
+  height: 40px;
+}
+
+mat-card-header{
+  font-family: Lato, Helvetica, sans-serif;
+  font-style: normal;
+  margin-left: 17%;
+  margin-top: 30px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/*.half-width {*/
+/*  width: 48%;*/
+/*  margin-bottom: 16px;*/
+/*}*/
+.new-price-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 10px;
+}
+
+.new-price-column {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+}
+
+/*#createBtn{*/
+/*  color: white;*/
+/*  background-color: rgb(63, 81, 181);*/
+/*}*/
+
+button{
+  width: 130px;
+  margin: 5%;
+  /*margin-bottom: 20px;*/
+}
+
+img{
+  width: 100px;
+  height: 100px;
+}
+.img-container{
+  border:2px solid black;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex: 0 0 calc(33.33% - 10px);
+  margin: 5px;
+}
+/*#browseFileInput{*/
+/*  height: 28px;*/
+/*  color: white;*/
+/*    background-color: rgb(63, 81, 181);*/
+/*}*/

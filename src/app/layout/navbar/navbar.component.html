@@ -1,7 +1,25 @@
 <mat-toolbar>
-  <span [routerLink]="['home']" >Booking Application</span>
-  <div>
-    <button [routerLink]="['login']" style="float: right" mat-raised-button color="primary">LogIn</button>
-    <button [routerLink]="['register']"  style="float: right" mat-raised-button color="accent">SignUp</button>
+  <div class="logo">
+    <span [routerLink]="['home']" >
+    <img src="assets/images/booking_logo.png" alt="Logo"/>
+    </span>
   </div>
+
+  <div>
+    <app-admin-navbar *ngIf="role=='ROLE_ADMIN'"></app-admin-navbar>
+    <app-host-navbar *ngIf="role=='ROLE_HOST'"></app-host-navbar>
+    <app-guest-navbar *ngIf="role=='ROLE_GUEST'"></app-guest-navbar>
+
+    <button *ngIf="role=='UNAUTHORIZED'" [routerLink]="['/login']" class="button-right" id="loginBtn" mat-raised-button>LogIn</button>
+    <button *ngIf="role=='UNAUTHORIZED'" [routerLink]="['/registration']" class="button-right" id="signUpBtn" mat-raised-button>SignUp</button>
+    <button *ngIf="role!='UNAUTHORIZED'" (click)="logout()" class="button-right" id="logoutBtn" mat-raised-button>LogOut</button>
+<!--    <button [routerLink]="['manage-account']" class="button-right" id="manageAccountBtn" mat-raised-button>My Account</button>-->
+<!--    <button [routerLink]="['accommodation-details']" class="button-right" id="accommodationDetailsBtn" mat-raised-button>Accommodation Details</button>-->
+<!--    <button [routerLink]="['create-accommodation']" class="button-right" id="createAccommodationBtn" mat-raised-button>Create Accommodation</button>-->
+<!--    <button (click)="getAccommodations()">get accommodation</button>-->
+  </div>
+  <span>
+    <input type="search" id="site-search" name="q" />
+    <button name="searchButton" id="searchBtn">Search</button>
+  </span>
 </mat-toolbar>
