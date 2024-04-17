@@ -1,0 +1,54 @@
+mat-toolbar {
+  background-color:#5656a1;   /*rgba(222, 170, 51, 0.89);*/
+  height: 60px;
+}
+
+div {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.button-right{
+  float: right;
+}
+
+#signUpBtn{
+  /*accent*/
+  background-color: rgb(255, 64, 129);
+  color: white;
+}
+#searchBtn{
+  background-color: aliceblue;
+  color: black;
+}
+
+#loginBtn, #accommodationDetailsBtn, #createAccommodationBtn, #manageAccountBtn{
+  background-color: rgb(63, 81, 181);
+  color:white;
+}
+
+/*mat-raised-button*/
+button {
+  margin-right: 10px;
+  background-color: rgb(63, 81, 181);
+  color:white;
+}
+
+input
+{
+  margin-right: 10px;
+}
+
+.logo {
+  margin: 2px;
+  padding-top: 10px;
+  width: 15%;
+}
+
+img
+{
+  width: 40px;
+  height: 40px;
+  horiz-align: center;
+  vertical-align: center;
+}

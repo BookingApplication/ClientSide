@@ -1,0 +1,97 @@
+.fileter-and-search-accommodations-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.accommodation-card {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+.amenities-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 10px;
+}
+
+.amenity-column {
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+}
+
+#date-range-picker{
+  height: 90px;
+}
+
+label{
+  horiz-align: left;
+  font-size: 25px;
+  margin-left: 38.5%;
+  margin-bottom: 10px;
+}
+.labelAmenities{
+  margin-left: 34%;
+}
+
+mat-divider{
+  margin-bottom: 10%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px
+}
+
+mat-label{
+  text-align: left;
+  vertical-align: center;
+  margin-left: 10px;
+}
+
+input{
+  width: 100%;
+  background-color: rgba(241, 241, 241, 0.78);
+  height: 40px;
+}
+
+mat-card-header{
+  font-family: Lato, Helvetica, sans-serif;
+  font-style: normal;
+  margin-left: 17%;
+  margin-top: 30px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+button{
+  width: 200px;
+  margin-left: 26%;
+  horiz-align: center;
+  margin-bottom: 25px;
+}
+
+/*.filter-container{*/
+/*  display: grid;*/
+/*  grid-template-columns: repeat(2, 1fr);*/
+/*  gap: 10px;*/
+/*  font-size: 10px;*/
+/*}*/
+
+/*.filter-column {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-self: center;*/
+/*}*/
+
+/*.search-width{*/
+/*  width: 380px;*/
+/*}*/

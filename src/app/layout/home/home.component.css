@@ -1,0 +1,15 @@
+.image-container{
+  width: calc(33.333% - 20px);
+  box-sizing: border-box;
+  float: left;
+}
+
+.clear-row {
+  clear: both;
+}
+
+h3 {
+  font-family: Lato, Helvetica, sans-serif;
+  font-style: normal;
+  margin-left: 10px;
+}
